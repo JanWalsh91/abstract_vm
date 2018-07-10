@@ -1,5 +1,5 @@
-- Create c++ Makefile
-- Consider split project into two sections
+✔ Create c++ Makefile
+- Consider split project into two sections / classes
 	- Lexer / Tokenizer
 		- Reads input
 		- Converts input to list of tokens
@@ -17,7 +17,6 @@
 			- assert instruction not true
 			- arithmetic error (div. mod by 0)
 			- ...
-	- Combine into one: total 3 Makefiles ?
 - Figure out exactly input formatting
 - Find library to help with parsing (boost::spirit ?)
 

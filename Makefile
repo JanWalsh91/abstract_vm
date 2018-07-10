@@ -6,7 +6,7 @@
 #    By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/10 15:59:40 by jwalsh            #+#    #+#              #
-#    Updated: 2018/07/10 16:35:39 by jwalsh           ###   ########.fr        #
+#    Updated: 2018/07/10 17:04:50 by jwalsh           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,14 +18,15 @@ CFLAGS = -Wall -Werror -Wextra
 
 # Sources #
 
-SRCS = main.cpp
+SRCS = main.cpp \
+		Lexer.cpp
 
-HEADERS = 
-
+HEADERS = Lexer.hpp
 
 OBJS := $(SRCS:.cpp=.o)
 SRCS_DIR := ./src
 OBJS_DIR := ./obj
+HEADERS := $(addprefix $(SRCS_DIR)/, $(HEADERS))
 OBJS := $(addprefix $(OBJS_DIR)/, $(OBJS))
 SRCS := $(addprefix $(SRCS_DIR)/, $(SRCS))
 
@@ -52,16 +53,16 @@ opti:
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@$(CXX) $(CFLAGS) $^ -o $@
+	@$(CXX) $(CFLAGS) -I$(SRCS) $< -o $@
 	@echo "$(C_CYAN)$(NAME) compiled$(C_NONE)"
 
 $(OBJS): $(SRCS) $(HEADERS)
-	@$(CXX) $(CFLAGS) -c -o $@ $^
+	@$(CXX) -I$(SRCS_DIR) $(CFLAGS) -o $@ -c $<
 
 $(OBJS): | $(OBJS_DIR)
 
 $(OBJS_DIR):
-	@mkdir -p $(OBJS_DIR) $(HEADERS)
+	@mkdir -p $(OBJS_DIR)
 
 clean:
 	@-/bin/rm -rf $(OBJS_DIR)
