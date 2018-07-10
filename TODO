@@ -1,0 +1,35 @@
+- Create c++ Makefile
+- Consider split project into two sections
+	- Lexer / Tokenizer
+		- Reads input
+		- Converts input to list of tokens
+		- Validates tokens and list of tokens
+			- lexical or syntactic errors
+			- unknown instruction
+			- program has no exit instruction
+			- ...
+	- Parser
+		- Parses and executes list of tokens
+		- Throws runtime errors
+			- over/underflow
+			- pop on empty stack
+			- less than 2 values when calling arithmetic function
+			- assert instruction not true
+			- arithmetic error (div. mod by 0)
+			- ...
+	- Combine into one: total 3 Makefiles ?
+- Figure out exactly input formatting
+- Find library to help with parsing (boost::spirit ?)
+
+
+
+
+IOperand Interface 
+- parent of child operand classes:
+	- int8, int16, int32, loat, double
+
+Operand Factory
+
+eOperandType
+- enum: Int8, ..., Double
+
