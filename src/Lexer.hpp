@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 16:39:59 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/10 17:10:44 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/12 13:39:31 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@
 # include <string>
 # include <fstream>
 # include <sstream>
+# include <iterator>
+# include <regex>
+# include <vector>
+# include "Token.hpp"
 
 class Lexer {
 
@@ -24,13 +28,25 @@ class Lexer {
 		Lexer(std::string);
 		Lexer(Lexer const &);
 		~Lexer();
+		void printTokens();
 
-	Lexer &operator=(Lexer const & rhs);
+		Lexer &operator=(Lexer const & rhs);
 	
 	private:
+		std::vector<Token*>	tokens;
+
 		Lexer();
-		void	readFile(std::string);
+		void			readFile(std::string);
+		void			tokenize(std::smatch);
+		// static bool		matchRegex(std::string, std::regex, std::smatch *);
+		static const	std::regex exit;
+		static const	std::regex comment;
+		static const	std::regex instr;
+		static const 	std::string value;
+		static const	std::string N;
+		static const	std::string Z;
 
 };
+
 
 #endif

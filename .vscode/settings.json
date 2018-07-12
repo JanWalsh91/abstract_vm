@@ -1,0 +1,24 @@
+{
+	"files.associations": {
+		"sstream": "cpp",
+		"__bit_reference": "cpp",
+		"initializer_list": "cpp",
+		"iterator": "cpp",
+		"string": "cpp",
+		"string_view": "cpp",
+		"memory": "cpp",
+		"utility": "cpp",
+		"regex": "cpp",
+		"__config": "cpp",
+		"__nullptr": "cpp",
+		"exception": "cpp",
+		"new": "cpp",
+		"stdexcept": "cpp",
+		"typeinfo": "cpp",
+		"__locale": "cpp",
+		"__split_buffer": "cpp",
+		"bitset": "cpp",
+		"deque": "cpp",
+		"vector": "cpp"
+	}
+}

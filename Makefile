@@ -6,22 +6,24 @@
 #    By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/10 15:59:40 by jwalsh            #+#    #+#              #
-#    Updated: 2018/07/10 17:04:50 by jwalsh           ###   ########.fr        #
+#    Updated: 2018/07/12 12:45:14 by jwalsh           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = avm
 
-CXX = clang++
+CXX = g++
 CFLAGS = -Wall -Werror -Wextra
 
 
 # Sources #
 
 SRCS = main.cpp \
-		Lexer.cpp
+		Lexer.cpp \
+		Token.cpp
 
-HEADERS = Lexer.hpp
+HEADERS = Lexer.hpp \
+		Token.hpp
 
 OBJS := $(SRCS:.cpp=.o)
 SRCS_DIR := ./src
@@ -29,7 +31,7 @@ OBJS_DIR := ./obj
 HEADERS := $(addprefix $(SRCS_DIR)/, $(HEADERS))
 OBJS := $(addprefix $(OBJS_DIR)/, $(OBJS))
 SRCS := $(addprefix $(SRCS_DIR)/, $(SRCS))
-
+# INCLUDES := "/sgoinfre/goinfre/Perso/jwalsh/boost_1_67_0/"
 
 # Colors #
 
