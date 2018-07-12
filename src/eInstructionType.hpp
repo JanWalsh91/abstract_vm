@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   eOperandType.hpp                                   :+:      :+:    :+:   */
+/*   eInstructionType.hpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/12 13:47:35 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/12 17:28:24 by jwalsh           ###   ########.fr       */
+/*   Created: 2018/07/12 17:12:08 by jwalsh            #+#    #+#             */
+/*   Updated: 2018/07/12 17:33:53 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EOPERAND_TYPE
-# define EOPERAND_TYPE
+#ifndef EINSTRUCTION_TYPE
+# define EINSTRUCTION_TYPE
 
 # include <string>
 
-enum eOperandType { Int8, Int16, Int32, Float, Double };
-const std::string eOperandTypeNames[] { "int8", "int16", "int32", "float", "double" };
+enum eInstructionType { Push, Assert, Print, Add, Sub, Mul, Div, Mod, Pop, Dump, Exit };
+const std::string eInstructionTypeNames[] { "push", "assert", "print", "add", "sub", "mul", "div", "mod", "pop", "dump", "exit" };
 
 #endif

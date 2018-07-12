@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 12:39:59 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/12 15:04:11 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/12 17:40:26 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,14 @@ Token::Token(std::string instruction) {
 		std::cout << "error: " << instruction << " requires value\n";
 		std::exit(0);
 	}
-	this->instruction = instruction;
-	this->type = eOperandType::None;
+	for (int i = 0; i < 11; ++i) {
+		if (eInstructionTypeNames[i] == instruction) {
+			this->instruction = static_cast<eInstructionType>(i);
+			break ;
+		}
+	}
+	// this->instruction = eInstructionType::None;
+	// this->type = eOperandType::None;
 	this->value = "";
 }
 
@@ -33,20 +39,17 @@ Token::Token(std::string instruction, std::string type, std::string value) {
 		std::cout << "error: " << instruction << " does not require value\n"; 
 		std::exit(0);
 	}
-	this->instruction = instruction;
-	if (type == "int8")
-		this->type = eOperandType::Int8;
-	else if (type == "int16")
-		this->type = eOperandType::Int16;
-	else if (type == "int32")
-		this->type = eOperandType::Int32;
-	else if (type == "float")
-		this->type = eOperandType::Float;
-	else if (type == "double")
-		this->type = eOperandType::Double;
-	else {
-		std::cout << "error: invlaid operand type\n";
-		std::exit(0);
+	for (int i = 0; i < 5; ++i) {
+		if (eOperandTypeNames[i] == type) {
+			this->type = static_cast<eOperandType>(i);
+			break ;
+		}
+	}
+	for (int i = 0; i < 11; ++i) {
+		if (eInstructionTypeNames[i] == instruction) {
+			this->instruction = static_cast<eInstructionType>(i);
+			break ;
+		}
 	}
 	this->value = value;
 }
@@ -63,7 +66,7 @@ Token &Token::operator=(Token const & rhs) {
 	return *this;
 }
 
-std::string		Token::getInstruction() const {
+eInstructionType		Token::getInstruction() const {
 	return this->instruction;	
 }
 
@@ -75,14 +78,14 @@ std::string		Token::getValue() const {
 	return this->value;
 }
 
-
 std::ostream& operator<<( std::ostream& os, const Token & token ) {
-	// printf("<< op. instruction: %s\n", token.getInstruction().c_str());
-	if (token.getInstruction().size() > 0)
-		os << token.getInstruction();
-	if (token.getType() != eOperandType::None)
-		os << ", type: " << token.getType();
-	if (token.getValue().size() > 0)
+	// printf("displaying token: ");
+	// (void)token;
+	
+	os << eInstructionTypeNames[token.getInstruction()];
+	if (token.getInstruction() == eInstructionType::Push || token.getInstruction() == eInstructionType::Assert) {
+		os << ", type: " << eOperandTypeNames[token.getType()];
 		os << ", value: " << token.getValue();
+	}
     return os;
 }

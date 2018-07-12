@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 14:36:02 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/12 16:05:05 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/12 17:42:58 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,29 +37,34 @@ IOperand const * IOperandFactory::createOperand(eOperandType type, std::string c
 }
 
 IOperand const * IOperandFactory::createInt8( std::string const & value ) const {
+	printf("IOperandFactory::createInt8\n");
 	(void)value;
 	return NULL;
 }
 
 IOperand const * IOperandFactory::createInt16( std::string const & value ) const {
+	printf("IOperandFactory::createInt16\n");
 	(void)value;
 	return NULL;
 	
 }
 
 IOperand const * IOperandFactory::createInt32( std::string const & value ) const {
+	printf("IOperandFactory::createInt32\n");
 	(void)value;
 	return NULL;
 	
 }
 
 IOperand const * IOperandFactory::createFloat( std::string const & value ) const {
+	printf("IOperandFactory::createFloat\n");
 	(void)value;
 	return NULL;
 	
 }
 
 IOperand const * IOperandFactory::createDouble( std::string const & value ) const {
+	printf("IOperandFactory::createDouble\n");
 	(void)value;
 	return NULL;
 	

@@ -6,7 +6,7 @@
 #    By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/10 15:59:40 by jwalsh            #+#    #+#              #
-#    Updated: 2018/07/12 14:37:58 by jwalsh           ###   ########.fr        #
+#    Updated: 2018/07/12 17:13:22 by jwalsh           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ HEADERS = Lexer.hpp \
 		eOperandType.hpp \
 		Parser.hpp \
 		IOperand.hpp \
-		IOperandFactory.hpp
+		IOperandFactory.hpp \
+		eInstructionType.hpp
 
 OBJS := $(SRCS:.cpp=.o)
 SRCS_DIR := ./src
@@ -58,6 +59,9 @@ C_GRAY = \033[37m
 opti:
 	@$(MAKE) -j all
 
+debug:
+	@$(MAKE) all
+
 all: $(NAME)
 
 $(NAME): $(OBJS)
@@ -65,7 +69,7 @@ $(NAME): $(OBJS)
 	@echo "$(C_CYAN)$(NAME) compiled$(C_NONE)"
 
 $(OBJS): $(SRCS) $(HEADERS)
-	@$(CXX) -I$(SRCS_DIR) $(CFLAGS) -o $@ -c $<
+	@$(CXX) -I$(SRCS_DIR) $(CFLAGS) -o $@ -c $< -g
 
 $(OBJS): | $(OBJS_DIR)
 

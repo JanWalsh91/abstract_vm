@@ -1,1 +1,2 @@
 push int16(42)
+push int32(50)

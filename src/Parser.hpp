@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 14:18:19 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/12 14:35:16 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/12 16:40:51 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@
 # include <string>
 # include <iostream>
 # include <vector>
+
 # include "Token.hpp"
+# include "IOperandFactory.hpp"
 
 class Parser {
 
@@ -32,7 +34,29 @@ class Parser {
 		void	parse();
 		
 	private:
-		std::vector<Token*>	tokens;
+		std::vector<Token*>		tokens;
+		std::vector<IOperand const *>	operands;
+		IOperandFactory			operandFactory;
+
+
+		// stack functions
+		void	push(eOperandType, std::string const &);
+		void	assert(eOperandType, std::string const &);
+		void	print(eOperandType, std::string const &);
+		
+		void	add(eOperandType, std::string const &);
+		void	sub(eOperandType, std::string const &);
+		void	mul(eOperandType, std::string const &);
+		void	div(eOperandType, std::string const &);
+		void	mod(eOperandType, std::string const &);
+		
+		void	pop(eOperandType, std::string const &);
+		void	dump(eOperandType, std::string const &);
+		void	exit(eOperandType, std::string const &);
+
+		typedef void (Parser::*stackFunction) (eOperandType, std::string const &);
+		stackFunction stackFunctions[11];
+
 };
 
 // std::ostream& operator<<( std::ostream& os, const Parser & parser );

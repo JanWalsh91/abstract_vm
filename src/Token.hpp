@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 12:40:15 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/12 15:00:58 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/12 17:23:26 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <string>
 # include <iostream>
 # include "eOperandType.hpp"
+# include "eInstructionType.hpp"
 
 class Token {
 
@@ -26,16 +27,16 @@ class Token {
 		~Token();
 		
 		// Getters
-		std::string		getInstruction() const;
-		eOperandType	getType() const;
-		std::string		getValue() const;
+		eInstructionType	getInstruction() const;
+		eOperandType		getType() const;
+		std::string			getValue() const;
 
 		Token &operator=(Token const & rhs);
 	
 	private:
-		std::string		instruction;
-		eOperandType	type;
-		std::string		value;
+		eInstructionType	instruction;
+		eOperandType		type;
+		std::string			value;
 
 		Token();
 		
