@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 16:39:59 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/12 13:39:31 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/12 14:16:26 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ class Lexer {
 		Lexer(std::string);
 		Lexer(Lexer const &);
 		~Lexer();
-		void printTokens();
+		void				printTokens();
+		std::vector<Token*>	getTokens();
 
 		Lexer &operator=(Lexer const & rhs);
 	

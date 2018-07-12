@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 16:39:34 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/12 13:43:45 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/12 14:16:58 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@ void	Lexer::printTokens()
 	for (uint i = 0; i < this->tokens.size(); i++) {
 		std::cout << "Token " << i << ": " << *this->tokens[i] << std::endl;
 	}
+}
+
+std::vector<Token*>	Lexer::getTokens() {
+	return this->tokens;
 }
 
 Lexer &Lexer::operator=(Lexer const & rhs) {
@@ -66,7 +70,7 @@ void	Lexer::readFile(std::string file) {
 			}
 			else {
 				printf("Syntax error: %s\n", line.c_str());
-				return ;
+				std::exit(0);
 			}
 		}
 	}

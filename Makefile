@@ -6,24 +6,30 @@
 #    By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/10 15:59:40 by jwalsh            #+#    #+#              #
-#    Updated: 2018/07/12 12:45:14 by jwalsh           ###   ########.fr        #
+#    Updated: 2018/07/12 14:37:58 by jwalsh           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = avm
 
 CXX = g++
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -Wc++11-extensions -std=c++11
 
 
 # Sources #
 
 SRCS = main.cpp \
 		Lexer.cpp \
-		Token.cpp
+		Token.cpp \
+		Parser.cpp \
+		IOperandFactory.cpp
 
 HEADERS = Lexer.hpp \
-		Token.hpp
+		Token.hpp \
+		eOperandType.hpp \
+		Parser.hpp \
+		IOperand.hpp \
+		IOperandFactory.hpp
 
 OBJS := $(SRCS:.cpp=.o)
 SRCS_DIR := ./src
