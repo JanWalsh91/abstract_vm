@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 14:18:19 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/12 16:40:51 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/13 13:46:06 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,9 @@ class Parser {
 		void	parse();
 		
 	private:
-		std::vector<Token*>		tokens;
+		std::vector<Token*>				tokens;
 		std::vector<IOperand const *>	operands;
-		IOperandFactory			operandFactory;
-
+		IOperandFactory					operandFactory;
 
 		// stack functions
 		void	push(eOperandType, std::string const &);

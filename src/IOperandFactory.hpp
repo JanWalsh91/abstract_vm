@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 14:34:54 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/12 15:49:41 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/13 16:40:33 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,14 @@
 
 # include "eOperandType.hpp"
 # include "IOperand.hpp"
+# include "OverflowException.hpp"
+# include "DivideByZeroException.hpp"
+# include "OperandsNotIntegersException.hpp"
+# include "Int8.hpp"
+# include "Int16.hpp"
+# include "Int32.hpp"
+# include "Float.hpp"
+# include "Double.hpp"
 
 class IOperandFactory {
 

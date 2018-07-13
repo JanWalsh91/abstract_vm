@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 14:31:31 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/12 14:46:00 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/13 15:39:33 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,15 @@
 # define IOPERAND_HPP
 
 # include <string>
+# include <algorithm>
+# include <sstream>
+# include <climits>
 # include "eOperandType.hpp"
 
 class IOperand {
+
 public:
+	
 	virtual int getPrecision( void ) const = 0; // Precision of the type of the instance
 	virtual eOperandType getType( void ) const = 0; // Type of the instance
 	

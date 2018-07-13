@@ -6,7 +6,7 @@
 #    By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/10 15:59:40 by jwalsh            #+#    #+#              #
-#    Updated: 2018/07/12 17:13:22 by jwalsh           ###   ########.fr        #
+#    Updated: 2018/07/13 16:40:48 by jwalsh           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,14 +15,21 @@ NAME = avm
 CXX = g++
 CFLAGS = -Wall -Werror -Wextra -Wc++11-extensions -std=c++11
 
-
 # Sources #
 
 SRCS = main.cpp \
 		Lexer.cpp \
 		Token.cpp \
 		Parser.cpp \
-		IOperandFactory.cpp
+		IOperandFactory.cpp \
+		Int8.cpp \
+		Int16.cpp \
+		Int32.cpp \
+		Float.cpp \
+		Double.cpp \
+		OverflowException.cpp \
+		DivideByZeroException.cpp \
+		OperandsNotIntegersException.cpp
 
 HEADERS = Lexer.hpp \
 		Token.hpp \
@@ -30,7 +37,15 @@ HEADERS = Lexer.hpp \
 		Parser.hpp \
 		IOperand.hpp \
 		IOperandFactory.hpp \
-		eInstructionType.hpp
+		eInstructionType.hpp \
+		Int8.hpp \
+		Int16.hpp \
+		Int32.hpp \
+		Float.hpp \
+		Double.hpp \
+		OverflowException.hpp \
+		DivideByZeroException.hpp \
+		OperandsNotIntegersException.hpp
 
 OBJS := $(SRCS:.cpp=.o)
 SRCS_DIR := ./src

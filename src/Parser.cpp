@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 14:18:29 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/12 17:41:43 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/13 15:41:44 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 Parser::Parser() {
 	printf("parser constructor\n");
-	this->stackFunctions[0] = &Parser::push;
-	this->stackFunctions[1] = NULL;
-	this->stackFunctions[2] = NULL;
-	this->stackFunctions[3] = NULL;
-	this->stackFunctions[4] = NULL;
-	this->stackFunctions[5] = NULL;
-	this->stackFunctions[6] = NULL;
-	this->stackFunctions[7] = NULL;
-	this->stackFunctions[8] = NULL;
-	this->stackFunctions[9] = NULL;
-	this->stackFunctions[10] = NULL;
+	this->stackFunctions[eInstructionType::Push] = &Parser::push;
+	this->stackFunctions[eInstructionType::Assert] = NULL;
+	this->stackFunctions[eInstructionType::Print] = NULL;
+	this->stackFunctions[eInstructionType::Add] = &Parser::add;
+	this->stackFunctions[eInstructionType::Sub] = &Parser::sub;
+	this->stackFunctions[eInstructionType::Mul] = &Parser::mul;
+	this->stackFunctions[eInstructionType::Div] = &Parser::div;
+	this->stackFunctions[eInstructionType::Mod] = &Parser::mod;
+	this->stackFunctions[eInstructionType::Pop] = NULL;
+	this->stackFunctions[eInstructionType::Dump] = &Parser::dump;
+	this->stackFunctions[eInstructionType::Exit] = NULL;
 }
 
 Parser::Parser(std::vector<Token*> tokens) : Parser::Parser() {
@@ -60,9 +60,9 @@ void	Parser::parse() {
 		printf("calling on stackFunction\n");
 		// (this->*(stackFunctions[0]))
 		// 	( eOperandType::Int32, "test" );
-		(this->*(stackFunctions[0]))
+		(this->*(stackFunctions[this->tokens[i]->getInstruction()]))
 			( this->tokens[i]->getType(), this->tokens[i]->getValue() );
-		std::exit(0);
+		// std::exit(0);
 	}
 	
 }
@@ -71,4 +71,89 @@ void	Parser::push(eOperandType type, std::string const & value) {
 	printf("push\n");
 	printf("push: %s\n", value.c_str());
 	this->operands.push_back(this->operandFactory.createOperand(type, value));
+}
+
+void	Parser::dump(eOperandType type, std::string const & value) {
+	printf("dump. stack size: %lu\n", this->operands.size());
+	(void)type;
+	(void)value;
+
+	for (uint i = 0; i < this->operands.size(); ++i) {
+		std::cout << this->operands[i]->toString() << std::endl;
+	}
+}
+
+void	Parser::add(eOperandType type, std::string const & value) {
+	printf("add\n");
+	(void)type;
+	(void)value;
+
+	IOperand const * o1 = this->operands.back();
+	this->operands.pop_back();
+	IOperand const * o2 = this->operands.back();
+	this->operands.pop_back();
+	
+	this->operands.push_back(*o1 + *o2);
+	delete o1;
+	delete o2;
+}
+
+void	Parser::sub(eOperandType type, std::string const & value) {
+	printf("sub\n");
+	(void)type;
+	(void)value;
+
+	IOperand const * o1 = this->operands.back();
+	this->operands.pop_back();
+	IOperand const * o2 = this->operands.back();
+	this->operands.pop_back();
+	
+	this->operands.push_back(*o2 - *o1);
+	delete o1;
+	delete o2;
+}
+
+void	Parser::mul(eOperandType type, std::string const & value) {
+	printf("sub\n");
+	(void)type;
+	(void)value;
+
+	IOperand const * o1 = this->operands.back();
+	this->operands.pop_back();
+	IOperand const * o2 = this->operands.back();
+	this->operands.pop_back();
+	
+	this->operands.push_back(*o1 * *o2);
+	delete o1;
+	delete o2;
+}
+
+void	Parser::div(eOperandType type, std::string const & value) {
+	printf("sub\n");
+	(void)type;
+	(void)value;
+
+	IOperand const * o1 = this->operands.back();
+	this->operands.pop_back();
+	IOperand const * o2 = this->operands.back();
+	this->operands.pop_back();
+	
+	this->operands.push_back(*o2 / *o1);
+	delete o1;
+	delete o2;
+}
+
+void	Parser::mod(eOperandType type, std::string const & value) {
+	printf("sub\n");
+	(void)type;
+	(void)value;
+
+	IOperand const * o1 = this->operands.back();
+	this->operands.pop_back();
+	IOperand const * o2 = this->operands.back();
+	this->operands.pop_back();
+	
+	this->operands.push_back(*o2 % *o1);
+	delete o1;
+	delete o2;
 }

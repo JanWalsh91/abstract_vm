@@ -1,2 +1,5 @@
-push int16(42)
-push int32(50)
+push int16(500)
+push int32(5)
+push float(5.5)
+add
+add
