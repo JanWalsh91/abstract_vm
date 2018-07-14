@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/13 16:39:38 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/13 16:42:14 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/14 15:27:57 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,18 @@
 Double::Double() {}
 
 Double::Double(std::string value) {
-	double i = std::stod(value);
+	double d = std::stod(value);
 
-	// TODO check for error with stod
-	if (i == 0.0)
+	if (std::isinf(d))
 		throw new OverflowException();
-	else
-		this->value = value;
+	else {
+		this->value = std::to_string(d);
+		for (int i = this->value.size() - 1; i > 0; i--) {
+			if (this->value[i] == '0' && this->value[i -1] != '.')
+				this->value.erase(i, 1);
+			else break ;
+		}
+	}
 }
 
 Double::Double( Double const & d ) {
@@ -47,7 +52,7 @@ IOperand const * Double::operator+( IOperand const & rhs ) const {
 	if (this->getPrecision() == rhs.getPrecision()) {
 		double res = static_cast<double>(std::atof(this->toString().c_str())) +
 			static_cast<double>(std::atof(rhs.toString().c_str()));
-		if (std::numeric_limits<double>::min() <= res && res <= std::numeric_limits<double>::max())
+		if (!std::isinf(res))
 			return IOperandFactory().createOperand(eOperandType::Double, std::to_string(res));
 		throw new OverflowException();
 	}
@@ -64,7 +69,7 @@ IOperand const * Double::operator-( IOperand const & rhs ) const {
 	if (this->getPrecision() == rhs.getPrecision()) {
 		double res = static_cast<double>(std::atof(this->toString().c_str())) -
 			static_cast<double>(std::atof(rhs.toString().c_str()));
-		if (std::numeric_limits<double>::min() <= res && res <= std::numeric_limits<double>::max())
+		if (!std::isinf(res))
 			return IOperandFactory().createOperand(eOperandType::Double, std::to_string(res));
 		throw new OverflowException();
 	}
@@ -81,7 +86,7 @@ IOperand const * Double::operator*( IOperand const & rhs ) const {
 	if (this->getPrecision() == rhs.getPrecision()) {
 		double res = static_cast<double>(std::atof(this->toString().c_str())) *
 			static_cast<double>(std::atof(rhs.toString().c_str()));
-		if (std::numeric_limits<double>::min() <= res && res <= std::numeric_limits<double>::max())
+		if (!std::isinf(res))
 			return IOperandFactory().createOperand(eOperandType::Double, std::to_string(res));
 		throw new OverflowException();
 	}
@@ -100,7 +105,7 @@ IOperand const * Double::operator/( IOperand const & rhs ) const {
 			throw new DivideByZeroException();
 		double res = static_cast<double>(std::atof(this->toString().c_str())) /
 			static_cast<double>(std::atof(rhs.toString().c_str()));
-		if (std::numeric_limits<double>::min() <= res && res <= std::numeric_limits<double>::max())
+		if (!std::isinf(res))
 			return IOperandFactory().createOperand(eOperandType::Double, std::to_string(res));
 		throw new OverflowException();
 	}

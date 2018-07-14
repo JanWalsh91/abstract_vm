@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 14:18:19 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/13 13:46:06 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/14 13:09:59 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 # include "Token.hpp"
 # include "IOperandFactory.hpp"
+# include "AssertionFalseException.hpp"
 
 class Parser {
 
@@ -55,7 +56,6 @@ class Parser {
 
 		typedef void (Parser::*stackFunction) (eOperandType, std::string const &);
 		stackFunction stackFunctions[11];
-
 };
 
 // std::ostream& operator<<( std::ostream& os, const Parser & parser );

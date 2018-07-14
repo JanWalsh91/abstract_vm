@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 14:18:29 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/13 15:41:44 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/14 15:22:36 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 Parser::Parser() {
 	printf("parser constructor\n");
 	this->stackFunctions[eInstructionType::Push] = &Parser::push;
-	this->stackFunctions[eInstructionType::Assert] = NULL;
-	this->stackFunctions[eInstructionType::Print] = NULL;
+	this->stackFunctions[eInstructionType::Assert] = &Parser::assert;
+	this->stackFunctions[eInstructionType::Print] = &Parser::print;
 	this->stackFunctions[eInstructionType::Add] = &Parser::add;
 	this->stackFunctions[eInstructionType::Sub] = &Parser::sub;
 	this->stackFunctions[eInstructionType::Mul] = &Parser::mul;
@@ -57,7 +57,7 @@ void	Parser::parse() {
 	// if push new value, create operand with the IOperandFactory
 	for (uint i = 0; i < this->tokens.size(); ++i) {
 		// this->*stackFunction[this->tokens[i]->getInstruction()]
-		printf("calling on stackFunction\n");
+		// printf("calling on stackFunction\n");
 		// (this->*(stackFunctions[0]))
 		// 	( eOperandType::Int32, "test" );
 		(this->*(stackFunctions[this->tokens[i]->getInstruction()]))
@@ -156,4 +156,34 @@ void	Parser::mod(eOperandType type, std::string const & value) {
 	this->operands.push_back(*o2 % *o1);
 	delete o1;
 	delete o2;
+}
+
+void	Parser::assert(eOperandType type, std::string const & value) {
+	printf("assert\n");
+	
+	printf("back value: %s, assert value: %s\n", this->operands.back()->toString().c_str(), value.c_str());
+	if (type == this->operands.back()->getType() &&
+		std::atof(value.c_str()) == std::atof(this->operands.back()->toString().c_str()))
+		return ;
+	throw new AssertionFalseException();
+}
+
+void	Parser::print(eOperandType type, std::string const & value) {
+	printf("print\n");
+	(void)type;
+	(void)value;
+
+	std::cout << this->operands.back()->toString() << std::endl;
+}
+
+void	Parser::pop(eOperandType type, std::string const & value) {
+	printf("pop\n");
+	(void)type;
+	(void)value;
+}
+
+void	Parser::exit(eOperandType type, std::string const & value) {
+	printf("exit\n");
+	(void)type;
+	(void)value;
 }

@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/13 11:53:45 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/13 16:42:01 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/14 13:00:11 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,8 @@ IOperand const * Int16::operator+( IOperand const & rhs ) const {
 	if (this->getPrecision() == rhs.getPrecision()) {
 		long res = static_cast<long>(std::atol(this->toString().c_str())) +
 			static_cast<long>(std::atol(rhs.toString().c_str()));
-		if (SHRT_MIN <= res && res <= SHRT_MAX) {
+		if (std::numeric_limits<short>::min() <= res && res <= std::numeric_limits<short>::max())
 			return IOperandFactory().createOperand(eOperandType::Int16, std::to_string(res));
-		}
 		throw new OverflowException();
 	}
 	// if not same type, determine final type based on precison
@@ -74,7 +73,7 @@ IOperand const * Int16::operator-( IOperand const & rhs ) const {
 	if (this->getPrecision() == rhs.getPrecision()) {
 		long res = static_cast<long>(std::atol(this->toString().c_str())) -
 			static_cast<long>(std::atol(rhs.toString().c_str()));
-		if (SHRT_MIN <= res && res <= SHRT_MAX)
+		if (std::numeric_limits<short>::min() <= res && res <= std::numeric_limits<short>::max())
 			return IOperandFactory().createOperand(eOperandType::Int16, std::to_string(res));
 		throw new OverflowException();
 	}
@@ -91,7 +90,7 @@ IOperand const * Int16::operator*( IOperand const & rhs ) const {
 	if (this->getPrecision() == rhs.getPrecision()) {
 		long res = static_cast<long>(std::atol(this->toString().c_str())) *
 			static_cast<long>(std::atol(rhs.toString().c_str()));
-		if (SHRT_MIN <= res && res <= SHRT_MAX)
+		if (std::numeric_limits<short>::min() <= res && res <= std::numeric_limits<short>::max())
 			return IOperandFactory().createOperand(eOperandType::Int16, std::to_string(res));
 		throw new OverflowException();
 	}
@@ -110,7 +109,7 @@ IOperand const * Int16::operator/( IOperand const & rhs ) const {
 			throw new DivideByZeroException();
 		long res = static_cast<long>(std::atol(this->toString().c_str())) /
 			static_cast<long>(std::atol(rhs.toString().c_str()));
-		if (SHRT_MIN <= res && res <= SHRT_MAX)
+		if (std::numeric_limits<short>::min() <= res && res <= std::numeric_limits<short>::max())
 			return IOperandFactory().createOperand(eOperandType::Int16, std::to_string(res));
 		throw new OverflowException();
 	}
@@ -129,7 +128,7 @@ IOperand const * Int16::operator%( IOperand const & rhs ) const {
 			throw new DivideByZeroException();
 		long res = static_cast<long>(std::atol(this->toString().c_str())) %
 			static_cast<long>(std::atol(rhs.toString().c_str()));
-		if (SHRT_MIN <= res && res <= SHRT_MAX)
+		if (std::numeric_limits<short>::min() <= res && res <= std::numeric_limits<short>::max())
 			return IOperandFactory().createOperand(eOperandType::Int16, std::to_string(res));
 		throw new OverflowException();
 	}

@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/13 16:00:56 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/13 16:41:36 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/14 15:26:00 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,18 @@
 Float::Float() {}
 
 Float::Float(std::string value) {
-	float i = std::stof(value);
+	float f = std::stod(value);
 
-	// TODO check for error with stof
-	if (i == 0.0f)
+	if (std::isinf(f))
 		throw new OverflowException();
-	else
-		this->value = value;
+	else {
+		this->value = std::to_string(f);
+		for (int i = this->value.size() - 1; i > 0; i--) {
+			if (this->value[i] == '0' && this->value[i -1] != '.')
+				this->value.erase(i, 1);
+			else break ;
+		}
+	}
 }
 
 Float::Float( Float const & f ) {
@@ -47,7 +52,7 @@ IOperand const * Float::operator+( IOperand const & rhs ) const {
 	if (this->getPrecision() == rhs.getPrecision()) {
 		float res = static_cast<float>(std::atof(this->toString().c_str())) +
 			static_cast<float>(std::atof(rhs.toString().c_str()));
-		if (std::numeric_limits<float>::min() <= res && res <= std::numeric_limits<float>::max())
+		if (!std::isinf(res))
 			return IOperandFactory().createOperand(eOperandType::Float, std::to_string(res));
 		throw new OverflowException();
 	}
@@ -64,7 +69,7 @@ IOperand const * Float::operator-( IOperand const & rhs ) const {
 	if (this->getPrecision() == rhs.getPrecision()) {
 		float res = static_cast<float>(std::atof(this->toString().c_str())) -
 			static_cast<float>(std::atof(rhs.toString().c_str()));
-		if (std::numeric_limits<float>::min() <= res && res <= std::numeric_limits<float>::max())
+		if (!std::isinf(res))
 			return IOperandFactory().createOperand(eOperandType::Float, std::to_string(res));
 		throw new OverflowException();
 	}
@@ -81,7 +86,7 @@ IOperand const * Float::operator*( IOperand const & rhs ) const {
 	if (this->getPrecision() == rhs.getPrecision()) {
 		float res = static_cast<float>(std::atof(this->toString().c_str())) *
 			static_cast<float>(std::atof(rhs.toString().c_str()));
-		if (std::numeric_limits<float>::min() <= res && res <= std::numeric_limits<float>::max())
+		if (!std::isinf(res))
 			return IOperandFactory().createOperand(eOperandType::Float, std::to_string(res));
 		throw new OverflowException();
 	}
@@ -100,7 +105,7 @@ IOperand const * Float::operator/( IOperand const & rhs ) const {
 			throw new DivideByZeroException();
 		float res = static_cast<float>(std::atof(this->toString().c_str())) /
 			static_cast<float>(std::atof(rhs.toString().c_str()));
-		if (std::numeric_limits<float>::min() <= res && res <= std::numeric_limits<float>::max())
+		if (!std::isinf(res))
 			return IOperandFactory().createOperand(eOperandType::Float, std::to_string(res));
 		throw new OverflowException();
 	}

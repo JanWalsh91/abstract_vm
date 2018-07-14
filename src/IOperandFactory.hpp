@@ -6,12 +6,14 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 14:34:54 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/13 16:40:33 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/14 15:17:07 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef IOPERAND_FACTORY_HPP
 # define IOPERAND_FACTORY_HPP
+
+# include <cmath>
 
 # include "eOperandType.hpp"
 # include "IOperand.hpp"

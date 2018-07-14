@@ -6,12 +6,14 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/13 16:00:44 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/13 16:00:46 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/14 13:25:42 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FLOAT_HPP
 # define FLOAT_HPP
+
+# include <regex>
 
 # include "IOperand.hpp"
 # include "IOperandFactory.hpp"

@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/13 15:57:53 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/13 16:41:46 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/14 12:59:41 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ IOperand const * Int32::operator+( IOperand const & rhs ) const {
 	if (this->getPrecision() == rhs.getPrecision()) {
 		long res = static_cast<long>(std::atol(this->toString().c_str())) +
 			static_cast<long>(std::atol(rhs.toString().c_str()));
-		if (INT_MIN <= res && res <= INT_MAX)
+		if (std::numeric_limits<int>::min() <= res && res <= std::numeric_limits<int>::max())
 			return IOperandFactory().createOperand(eOperandType::Int32, std::to_string(res));
 		throw new OverflowException();
 	}
@@ -63,7 +63,7 @@ IOperand const * Int32::operator-( IOperand const & rhs ) const {
 	if (this->getPrecision() == rhs.getPrecision()) {
 		long res = static_cast<long>(std::atol(this->toString().c_str())) -
 			static_cast<long>(std::atol(rhs.toString().c_str()));
-		if (INT_MIN <= res && res <= INT_MAX)
+		if (std::numeric_limits<int>::min() <= res && res <= std::numeric_limits<int>::max())
 			return IOperandFactory().createOperand(eOperandType::Int32, std::to_string(res));
 		throw new OverflowException();
 	}
@@ -80,7 +80,7 @@ IOperand const * Int32::operator*( IOperand const & rhs ) const {
 	if (this->getPrecision() == rhs.getPrecision()) {
 		long res = static_cast<long>(std::atol(this->toString().c_str())) *
 			static_cast<long>(std::atol(rhs.toString().c_str()));
-		if (INT_MIN <= res && res <= INT_MAX)
+		if (std::numeric_limits<int>::min() <= res && res <= std::numeric_limits<int>::max())
 			return IOperandFactory().createOperand(eOperandType::Int32, std::to_string(res));
 		throw new OverflowException();
 	}
@@ -99,7 +99,7 @@ IOperand const * Int32::operator/( IOperand const & rhs ) const {
 			throw new DivideByZeroException();
 		long res = static_cast<long>(std::atol(this->toString().c_str())) /
 			static_cast<long>(std::atol(rhs.toString().c_str()));
-		if (INT_MIN <= res && res <= INT_MAX)
+		if (std::numeric_limits<int>::min() <= res && res <= std::numeric_limits<int>::max())
 			return IOperandFactory().createOperand(eOperandType::Int32, std::to_string(res));
 		throw new OverflowException();
 	}
@@ -118,7 +118,7 @@ IOperand const * Int32::operator%( IOperand const & rhs ) const {
 			throw new DivideByZeroException();
 		long res = static_cast<long>(std::atol(this->toString().c_str())) %
 			static_cast<long>(std::atol(rhs.toString().c_str()));
-		if (INT_MIN <= res && res <= INT_MAX)
+		if (std::numeric_limits<int>::min() <= res && res <= std::numeric_limits<int>::max())
 			return IOperandFactory().createOperand(eOperandType::Int32, std::to_string(res));
 		throw new OverflowException();
 	}
