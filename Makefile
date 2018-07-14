@@ -6,7 +6,7 @@
 #    By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/10 15:59:40 by jwalsh            #+#    #+#              #
-#    Updated: 2018/07/14 13:10:17 by jwalsh           ###   ########.fr        #
+#    Updated: 2018/07/14 15:46:08 by jwalsh           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,10 @@ SRCS = main.cpp \
 		OverflowException.cpp \
 		DivideByZeroException.cpp \
 		OperandsNotIntegersException.cpp \
-		AssertionFalseException.cpp 
+		AssertionFalseException.cpp \
+		NotEnoughOperandsException.cpp \
+		EmptyStackException.cpp \
+		ExitCalledBeforeEndOfProgramException.cpp
 
 HEADERS = Lexer.hpp \
 		Token.hpp \
@@ -47,7 +50,10 @@ HEADERS = Lexer.hpp \
 		OverflowException.hpp \
 		DivideByZeroException.hpp \
 		OperandsNotIntegersException.hpp \
-		AssertionFalseException.hpp
+		AssertionFalseException.hpp \
+		NotEnoughOperandsException.hpp \
+		EmptyStackException.hpp \
+		ExitCalledBeforeEndOfProgramException.hpp
 
 OBJS := $(SRCS:.cpp=.o)
 SRCS_DIR := ./src

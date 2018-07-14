@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 16:21:45 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/14 15:15:47 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/14 16:14:08 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 // # include <limits>
 // # include <cmath>
 
-int    main() {
+int    main(int ac, char **av) {
 
 
 	// std::string s1 = "-1234567891234567891234567869123456789123456789.0";
@@ -78,9 +78,19 @@ int    main() {
 
 	// TODO add exception protection
 
-	// Lexer *lexer = new Lexer("test.txt");
-	Lexer *lexer = new Lexer("test.1.txt");
+	Lexer *lexer = new Lexer();
+
+	if (ac == 1)
+		lexer->readFromSI();
+	else	
+		lexer->readFile(av[1]);
+	
+	if (lexer->hasError()) {
+		delete lexer;
+		return (0);
+	}
 	lexer->printTokens();
+	
 	std::vector<Token*> tokens = lexer->getTokens();
 	
 	Parser *parser = new Parser(tokens);

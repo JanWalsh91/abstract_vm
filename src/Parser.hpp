@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 14:18:19 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/14 13:09:59 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/14 15:45:55 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 # include "Token.hpp"
 # include "IOperandFactory.hpp"
 # include "AssertionFalseException.hpp"
+# include "NotEnoughOperandsException.hpp"
+# include "EmptyStackException.hpp"
+# include "ExitCalledBeforeEndOfProgramException.hpp"
 
 class Parser {
 
@@ -38,6 +41,7 @@ class Parser {
 		std::vector<Token*>				tokens;
 		std::vector<IOperand const *>	operands;
 		IOperandFactory					operandFactory;
+		bool							end_parse;
 
 		// stack functions
 		void	push(eOperandType, std::string const &);

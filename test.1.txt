@@ -1,7 +1,9 @@
-push float(1.100)
-push float(00001.0)
-div
-assert float(1.1)
+push int8(0)
+push int8(0)
+add
 print
-push float(0001.00)
 dump
+pop
+pop
+pop
+pop
