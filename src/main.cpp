@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 16:21:45 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/14 16:14:08 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/16 12:36:58 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,24 +78,33 @@ int    main(int ac, char **av) {
 
 	// TODO add exception protection
 
-	Lexer *lexer = new Lexer();
+	try {
+		Lexer *lexer = new Lexer();
 
-	if (ac == 1)
-		lexer->readFromSI();
-	else	
-		lexer->readFile(av[1]);
-	
-	if (lexer->hasError()) {
+		try {
+			if (ac == 1)
+				lexer->readFromSI();
+			else	
+				lexer->readFile(av[1]);
+		} catch (const std::exception & e) {
+			std::cout << e.what() << std::endl;
+			delete lexer;
+			return (0);
+		}
+		
+		lexer->printTokens();
+		
+		std::vector<Token*> tokens = lexer->getTokens();
+		
+		Parser *parser = new Parser(tokens);
+		
+		// (void)parser;
+		parser->parse();
 		delete lexer;
-		return (0);
+		delete parser;
+	} catch (const std::exception & e) {
+		std::cout << e.what() << std::endl;
 	}
-	lexer->printTokens();
-	
-	std::vector<Token*> tokens = lexer->getTokens();
-	
-	Parser *parser = new Parser(tokens);
-	
-	parser->parse();
 	
 	return (0);
 }

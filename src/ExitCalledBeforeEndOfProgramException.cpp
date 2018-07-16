@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   NotEnoughOperandsException.1.cpp                   :+:      :+:    :+:   */
+/*   ExitCalledBeforeEndOfProgramException.cpp          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/14 15:33:43 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/14 15:45:31 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/16 12:38:30 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,5 @@ ExitCalledBeforeEndOfProgramException &    ExitCalledBeforeEndOfProgramException
 }
 
 const char* ExitCalledBeforeEndOfProgramException::what() const throw() {
-	return "Assertion is False Exception";
+	return "Error: 'exit' called before end of program";
 }

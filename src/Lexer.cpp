@@ -6,14 +6,13 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 16:39:34 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/14 16:49:11 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/16 13:01:18 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Lexer.hpp"
 
 Lexer::Lexer() {
-	std::cout << "Lexer constructor\n";
 	this->error = false;
 }
 
@@ -30,7 +29,7 @@ void	Lexer::printTokens()
 	for (uint i = 0; i < this->tokens.size(); i++) {
 		std::cout << "Token " << i << ": " << *this->tokens[i] << std::endl;
 	}
-	std::cout << "\nPrint Tokens: DONE\n";
+	std::cout << "Print Tokens: DONE\n\n";
 }
 
 std::vector<Token*>	Lexer::getTokens() {
@@ -49,15 +48,13 @@ Lexer &Lexer::operator=(Lexer const & rhs) {
 void	Lexer::readFile(std::string file) {
 	std::ifstream	is(file);
 	std::string		line;
-	size_t			lineCount;
 	size_t			operandsCount;
 
-	if ( is.is_open() ) {
-		lineCount = 0;
+	if (is.is_open()) {
+		this->line = 0;
 		operandsCount = 0;
 		while (std::getline(is, line)) {
-			++lineCount;
-			printf("\n==== get line: [%s] ====\n", line.c_str());
+			++this->line;
 			if (!line.size())
 				continue ;
 		
@@ -66,20 +63,21 @@ void	Lexer::readFile(std::string file) {
 				continue ;
 			}
 			else if (std::regex_match(line, m, Lexer::instr, std::regex_constants::match_not_null)) {
-				printf("Matched with instruction\n");
 				this->tokenize(m);
-				updateOperandsCount(operandsCount, this->tokens.back(), lineCount);
+				updateOperandsCount(operandsCount, this->tokens.back());
 			}
 			else {
-				printf("Syntax Error [line %lu]: %s\n", lineCount, line.c_str());
+				printf("Syntax Error [Line %lu]: %s\n", this->line, line.c_str());
 				this->error = true;
 			}
 		}
 	}
 	else {
-		std::cout << "error" << std::endl;
+		std::cout << "Error reading file.\n";
 		this->error = true;
 	}
+	if (this->error)
+		throw LexerErrorException();
 }
 
 void	Lexer::readFromSI() {
@@ -91,7 +89,6 @@ void	Lexer::readFromSI() {
 		if (input.empty())
 			continue ;
 		if (std::regex_match(input, m, Lexer::exit)) {
-			printf("Matched with exit\n");
 			this->tokenize(m);
 			break ;
 		}
@@ -99,10 +96,12 @@ void	Lexer::readFromSI() {
 			continue ;
 		}
 		else if (std::regex_match(input, m, Lexer::instr, std::regex_constants::match_not_null)) {
-			printf("Matched with instruction\n");
 			this->tokenize(m);
 			if (m[1] == "exit")
 				break ;
+		}
+		else if (input == "help") {
+			Lexer::printInstructions();
 		}
 		else
 			printf("Syntax Error\n");
@@ -128,7 +127,7 @@ const std::regex	Lexer::exit = std::regex(
 	"(;;)"
 );
 
-void	Lexer::updateOperandsCount(size_t & operandsCount, Token * token, size_t & lineCount) {
+void	Lexer::updateOperandsCount(size_t & operandsCount, Token * token) {
 	if (token->getInstruction() == eInstructionType::Push)
 		++operandsCount;
 	else if (token->getInstruction() == eInstructionType::Add ||
@@ -137,7 +136,7 @@ void	Lexer::updateOperandsCount(size_t & operandsCount, Token * token, size_t & 
 		token->getInstruction() == eInstructionType::Div ||
 		token->getInstruction() == eInstructionType::Mod) {
 		if (operandsCount < 2) {
-			printf("Error [Line %lu]: not enough operands in stack to perform operation.\n", lineCount);
+			printf("Error [Line %lu]: not enough operands in stack to perform operation.\n", this->line);
 			this->error = true;
 			delete this->tokens.back();
 			this->tokens.pop_back();		
@@ -149,7 +148,7 @@ void	Lexer::updateOperandsCount(size_t & operandsCount, Token * token, size_t & 
 		token->getInstruction() == eInstructionType::Assert ||
 		token->getInstruction() == eInstructionType::Print) {
 		if (operandsCount < 1) {
-			printf("Error [Line %lu]: not enough operands in stack to perform instruction.\n", lineCount);
+			printf("Error [Line %lu]: not enough operands in stack to perform instruction.\n", this->line);
 			this->error = true;
 			delete this->tokens.back();
 			this->tokens.pop_back();		
@@ -160,7 +159,6 @@ void	Lexer::updateOperandsCount(size_t & operandsCount, Token * token, size_t & 
 }
 
 void	Lexer::tokenize(std::smatch m) {
-	std::cout << "Tokenize" << std::endl;
 	std::string	instruction = "";
 	std::string	type = "";
 	std::string	value = "";
@@ -182,9 +180,31 @@ void	Lexer::tokenize(std::smatch m) {
 	}
 	if (instruction == ";;")
 		instruction = "exit";
-	printf("ADD TOKEN: instruction: [%s], type: [%s], value: [%s]\n", instruction.c_str(), type.c_str(), value.c_str());
+	// printf("ADD TOKEN: instruction: [%s], type: [%s], value: [%s]\n", instruction.c_str(), type.c_str(), value.c_str());
 	if (type.size() == 0 || value.size() == 0)
-		this->tokens.push_back(new Token(instruction));
+		this->tokens.push_back(new Token(this->line, instruction));
 	else
-		this->tokens.push_back(new Token(instruction, type, value));
+		this->tokens.push_back(new Token(this->line, instruction, type, value));
+}
+
+void			Lexer::printInstructions() {
+	printf("Instructions: \n");
+	printf("1. push \e[3mv\e[0m : Pushes the value \e[3mv\e[0m at the top of the stack. The value \e[3mv\e[0m must have one of the following forms:\n");
+	printf("\t- int8(\e[3mn\e[0m)\n");
+	printf("\t- int16(\e[3mn\e[0m)\n");
+	printf("\t- int32(\e[3mn\e[0m)\n");
+	printf("\t- float(\e[3mz\e[0m)\n");
+	printf("\t- double(\e[3mz\e[0m)\n");
+	printf("  with \e[3mn\e[0m an integer, and \e[3mz\e[0m a floating point number\n");
+	printf("2. pop : Unstacks the value from the top of the stack.\n");
+	printf("3. dump : Displays each value of the stack from newest to oldest.\n");
+	printf("4. assert \e[3mv\e[0m: Asserts that the value at the top of the stack is equal to the one passed as parameter for this instruction.\n");
+	printf("   Arithmetic operations: pops the top two elements of the stack and pushes result of the operation on those two elements on top of stack:\n");
+	printf("5. add\n");
+	printf("6. sub\n");
+	printf("7. mul\n");
+	printf("8. div\n");
+	printf("9. mod\n");
+	printf("10. print : Prints the value on top of the stack if it is an int8\n");
+	printf("11. exit. Can also use \";;\" while reading from standard input\n");
 }

@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/13 11:53:45 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/14 13:00:32 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/16 12:20:01 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ Int8::Int8(std::string value) {
 	long i = std::stol(value);
 	if (CHAR_MIN <= i && i <= CHAR_MAX)
 		this->value = value;
-	else throw new OverflowException();
+	else throw OverflowException();
 }
 
 Int8::Int8( Int8 const & int8 ) {
@@ -48,7 +48,7 @@ IOperand const * Int8::operator+( IOperand const & rhs ) const {
 			static_cast<long>(std::atol(rhs.toString().c_str()));
 		if (std::numeric_limits<char>::min() <= res && res <= std::numeric_limits<char>::max())
 			return IOperandFactory().createOperand(eOperandType::Int8, std::to_string(res));
-		throw new OverflowException();
+		throw OverflowException();
 	}
 	eOperandType	newType = static_cast<eOperandType>(std::max(this->getPrecision(), rhs.getPrecision()));
 	IOperand const * o1 = IOperandFactory().createOperand(newType, this->toString());
@@ -65,7 +65,7 @@ IOperand const * Int8::operator-( IOperand const & rhs ) const {
 			static_cast<long>(std::atol(rhs.toString().c_str()));
 		if (std::numeric_limits<char>::min() <= res && res <= std::numeric_limits<char>::max())
 			return IOperandFactory().createOperand(eOperandType::Int8, std::to_string(res));
-		throw new OverflowException();
+		throw OverflowException();
 	}
 	eOperandType	newType = static_cast<eOperandType>(std::max(this->getPrecision(), rhs.getPrecision()));
 	IOperand const * o1 = IOperandFactory().createOperand(newType, this->toString());
@@ -82,7 +82,7 @@ IOperand const * Int8::operator*( IOperand const & rhs ) const {
 			static_cast<long>(std::atol(rhs.toString().c_str()));
 		if (std::numeric_limits<char>::min() <= res && res <= std::numeric_limits<char>::max())
 			return IOperandFactory().createOperand(eOperandType::Int8, std::to_string(res));
-		throw new OverflowException();
+		throw OverflowException();
 	}
 	eOperandType	newType = static_cast<eOperandType>(std::max(this->getPrecision(), rhs.getPrecision()));
 	IOperand const * o1 = IOperandFactory().createOperand(newType, this->toString());
@@ -96,12 +96,12 @@ IOperand const * Int8::operator*( IOperand const & rhs ) const {
 IOperand const * Int8::operator/( IOperand const & rhs ) const {
 	if (this->getPrecision() == rhs.getPrecision()) {
 		if (static_cast<long>(std::atol(rhs.toString().c_str())) == 0)
-			throw new DivideByZeroException();
+			throw DivideByZeroException(this, &rhs);
 		long res = static_cast<long>(std::atol(this->toString().c_str())) /
 			static_cast<long>(std::atol(rhs.toString().c_str()));
 		if (std::numeric_limits<char>::min() <= res && res <= std::numeric_limits<char>::max())
 			return IOperandFactory().createOperand(eOperandType::Int8, std::to_string(res));
-		throw new OverflowException();
+		throw OverflowException();
 	}
 	eOperandType	newType = static_cast<eOperandType>(std::max(this->getPrecision(), rhs.getPrecision()));
 	IOperand const * o1 = IOperandFactory().createOperand(newType, this->toString());
@@ -115,12 +115,12 @@ IOperand const * Int8::operator/( IOperand const & rhs ) const {
 IOperand const * Int8::operator%( IOperand const & rhs ) const {
 	if (this->getPrecision() == rhs.getPrecision()) {
 		if (static_cast<long>(std::atol(rhs.toString().c_str())) == 0)
-			throw new DivideByZeroException();
+			throw DivideByZeroException(this, &rhs);
 		long res = static_cast<long>(std::atol(this->toString().c_str())) %
 			static_cast<long>(std::atol(rhs.toString().c_str()));
 		if (std::numeric_limits<char>::min() <= res && res <= std::numeric_limits<char>::max())
 			return IOperandFactory().createOperand(eOperandType::Int8, std::to_string(res));
-		throw new OverflowException();
+		throw OverflowException();
 	}
 	eOperandType	newType = static_cast<eOperandType>(std::max(this->getPrecision(), rhs.getPrecision()));
 	IOperand const * o1 = IOperandFactory().createOperand(newType, this->toString());

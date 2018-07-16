@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 14:36:02 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/13 16:41:05 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/14 17:17:50 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,26 +37,26 @@ IOperand const * IOperandFactory::createOperand(eOperandType type, std::string c
 }
 
 IOperand const * IOperandFactory::createInt8( std::string const & value ) const {
-	printf("IOperandFactory::createInt8\n");
+	// printf("IOperandFactory::createInt8\n");
 	return new class Int8(value);
 }
 
 IOperand const * IOperandFactory::createInt16( std::string const & value ) const {
-	printf("IOperandFactory::createInt16\n");
+	// printf("IOperandFactory::createInt16\n");
 	return new class Int16(value);
 }
 
 IOperand const * IOperandFactory::createInt32( std::string const & value ) const {
-	printf("IOperandFactory::createInt32\n");
+	// printf("IOperandFactory::createInt32\n");
 	return new class Int32(value);
 }
 
 IOperand const * IOperandFactory::createFloat( std::string const & value ) const {
-	printf("IOperandFactory::createFloat\n");
+	// printf("IOperandFactory::createFloat\n");
 	return new class Float(value);
 }
 
 IOperand const * IOperandFactory::createDouble( std::string const & value ) const {
-	printf("IOperandFactory::createDouble\n");
+	// printf("IOperandFactory::createDouble\n");
 	return new class Double(value);
 }

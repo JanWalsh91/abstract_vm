@@ -6,14 +6,14 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 14:18:29 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/14 15:45:15 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/16 12:58:31 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Parser.hpp"
 
 Parser::Parser() {
-	printf("parser constructor\n");
+	// printf("parser constructor\n");
 	this->stackFunctions[eInstructionType::Push] = &Parser::push;
 	this->stackFunctions[eInstructionType::Assert] = &Parser::assert;
 	this->stackFunctions[eInstructionType::Print] = &Parser::print;
@@ -49,7 +49,7 @@ void	Parser::setTokens(std::vector<Token*> tokens) {
 }
 
 void	Parser::parse() {
-	std::cout << "parse\n";
+	// std::cout << "parse\n";
 	if (this->tokens.size() == 0) {
 		return ;
 	}
@@ -61,11 +61,18 @@ void	Parser::parse() {
 		// printf("calling on stackFunction\n");
 		// (this->*(stackFunctions[0]))
 		// 	( eOperandType::Int32, "test" );
+		try {
 		(this->*(stackFunctions[this->tokens[i]->getInstruction()]))
 			( this->tokens[i]->getType(), this->tokens[i]->getValue() );
+		}
+		catch (const std::exception & e) {
+			std::cout << "Error [Line " << this->tokens[i]->getLine() << "]: "
+				<< e.what() << std::endl;
+			return ;
+		}
 		if (this->end_parse) {
 			if (i + 1 != this->tokens.size()) {
-				throw new ExitCalledBeforeEndOfProgramException();
+				throw ExitCalledBeforeEndOfProgramException();
 			}
 			break ;
 		}
@@ -74,28 +81,28 @@ void	Parser::parse() {
 }
 
 void	Parser::push(eOperandType type, std::string const & value) {
-	printf("push\n");
-	printf("push: %s\n", value.c_str());
+	// printf("push\n");
+	// printf("push: %s\n", value.c_str());
 	this->operands.push_back(this->operandFactory.createOperand(type, value));
 }
 
 void	Parser::dump(eOperandType type, std::string const & value) {
-	printf("dump. stack size: %lu\n", this->operands.size());
+	// printf("dump. stack size: %lu\n", this->operands.size());
 	(void)type;
 	(void)value;
 
-	for (uint i = 0; i < this->operands.size(); ++i) {
+	for (int i = (int)this->operands.size() - 1; i >= 0 ; --i) {
 		std::cout << this->operands[i]->toString() << std::endl;
 	}
 }
 
 void	Parser::add(eOperandType type, std::string const & value) {
-	printf("add\n");
+	// printf("add\n");
 	(void)type;
 	(void)value;
 
 	if (this->operands.size() < 2)
-		throw new NotEnoughOperandsException();
+		throw NotEnoughOperandsException();
 	IOperand const * o1 = this->operands.back();
 	this->operands.pop_back();
 	IOperand const * o2 = this->operands.back();
@@ -107,7 +114,7 @@ void	Parser::add(eOperandType type, std::string const & value) {
 }
 
 void	Parser::sub(eOperandType type, std::string const & value) {
-	printf("sub\n");
+	// printf("sub\n");
 	(void)type;
 	(void)value;
 
@@ -122,12 +129,12 @@ void	Parser::sub(eOperandType type, std::string const & value) {
 }
 
 void	Parser::mul(eOperandType type, std::string const & value) {
-	printf("sub\n");
+	// printf("sub\n");
 	(void)type;
 	(void)value;
 
 	if (this->operands.size() < 2)
-		throw new NotEnoughOperandsException();
+		throw NotEnoughOperandsException();
 	IOperand const * o1 = this->operands.back();
 	this->operands.pop_back();
 	IOperand const * o2 = this->operands.back();
@@ -139,12 +146,12 @@ void	Parser::mul(eOperandType type, std::string const & value) {
 }
 
 void	Parser::div(eOperandType type, std::string const & value) {
-	printf("sub\n");
+	// printf("sub\n");
 	(void)type;
 	(void)value;
 
 	if (this->operands.size() < 2)
-		throw new NotEnoughOperandsException();
+		throw NotEnoughOperandsException();
 	IOperand const * o1 = this->operands.back();
 	this->operands.pop_back();
 	IOperand const * o2 = this->operands.back();
@@ -156,12 +163,12 @@ void	Parser::div(eOperandType type, std::string const & value) {
 }
 
 void	Parser::mod(eOperandType type, std::string const & value) {
-	printf("sub\n");
+	// printf("sub\n");
 	(void)type;
 	(void)value;
 
 	if (this->operands.size() < 2)
-		throw new NotEnoughOperandsException();
+		throw NotEnoughOperandsException();
 	IOperand const * o1 = this->operands.back();
 	this->operands.pop_back();
 	IOperand const * o2 = this->operands.back();
@@ -173,39 +180,39 @@ void	Parser::mod(eOperandType type, std::string const & value) {
 }
 
 void	Parser::assert(eOperandType type, std::string const & value) {
-	printf("assert\n");
+	// printf("assert\n");
 	
 	if (this->operands.size() == 0)
-		throw new EmptyStackException();
-	printf("back value: %s, assert value: %s\n", this->operands.back()->toString().c_str(), value.c_str());
+		throw EmptyStackException();
+	// printf("back value: %s, assert value: %s\n", this->operands.back()->toString().c_str(), value.c_str());
 	if (type == this->operands.back()->getType() &&
 		std::atof(value.c_str()) == std::atof(this->operands.back()->toString().c_str()))
 		return ;
-	throw new AssertionFalseException();
+	throw AssertionFalseException(this->operands.back(), type, value);
 }
 
 void	Parser::print(eOperandType type, std::string const & value) {
-	printf("print\n");
+	// printf("print\n");
 	(void)type;
 	(void)value;
 
 	if (this->operands.size() == 0)
-		throw new EmptyStackException();
+		throw EmptyStackException();
 	std::cout << this->operands.back()->toString() << std::endl;
 }
 
 void	Parser::pop(eOperandType type, std::string const & value) {
-	printf("pop\n");
+	// printf("pop\n");
 	(void)type;
 	(void)value;
 
 	if (this->operands.size() == 0)
-		throw new EmptyStackException();
+		throw EmptyStackException();
 	this->operands.pop_back();
 }
 
 void	Parser::exit(eOperandType type, std::string const & value) {
-	printf("exit\n");
+	// printf("exit\n");
 	(void)type;
 	(void)value;
 

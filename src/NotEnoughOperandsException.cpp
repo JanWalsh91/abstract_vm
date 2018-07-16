@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/14 15:33:43 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/14 15:33:45 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/16 12:58:50 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,5 @@ NotEnoughOperandsException &    NotEnoughOperandsException::operator=( NotEnough
 }
 
 const char* NotEnoughOperandsException::what() const throw() {
-	return "Assertion is False Exception";
+	return "Not enough operands to perform operation";
 }

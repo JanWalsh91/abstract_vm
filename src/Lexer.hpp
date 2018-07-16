@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 16:39:59 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/14 16:49:06 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/16 12:43:32 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <regex>
 # include <vector>
 # include "Token.hpp"
+# include "LexerErrorException.hpp"
 
 class Lexer {
 
@@ -35,20 +36,22 @@ class Lexer {
 		bool				hasError();
 
 		Lexer &operator=(Lexer const & rhs);
-	
+		
+		static void			printInstructions();
 	
 	private:
 		std::vector<Token*>	tokens;
 		bool				error;
 
 		void			tokenize(std::smatch);
-		void			updateOperandsCount(size_t & operandsCount, Token * token, size_t & lineCount);
+		void			updateOperandsCount(size_t & operandsCount, Token * token);
 		static const	std::regex exit;
 		static const	std::regex comment;
 		static const	std::regex instr;
 		static const 	std::string value;
 		static const	std::string N;
 		static const	std::string Z;
+		size_t			line;
 
 };
 

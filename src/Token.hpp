@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 12:40:15 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/12 17:23:26 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/16 12:56:31 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 class Token {
 
 	public:
-		Token(std::string instruction);
-		Token(std::string instruction, std::string type, std::string value);
+		Token(size_t line, std::string instruction);
+		Token(size_t line, std::string instruction, std::string type, std::string value);
 		Token(Token const &);
 		~Token();
 		
@@ -30,6 +30,7 @@ class Token {
 		eInstructionType	getInstruction() const;
 		eOperandType		getType() const;
 		std::string			getValue() const;
+		size_t				getLine() const;
 
 		Token &operator=(Token const & rhs);
 	
@@ -37,6 +38,7 @@ class Token {
 		eInstructionType	instruction;
 		eOperandType		type;
 		std::string			value;
+		size_t				line;
 
 		Token();
 		

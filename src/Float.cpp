@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/13 16:00:56 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/14 15:26:00 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/16 12:20:01 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ Float::Float(std::string value) {
 	float f = std::stod(value);
 
 	if (std::isinf(f))
-		throw new OverflowException();
+		throw OverflowException();
 	else {
 		this->value = std::to_string(f);
 		for (int i = this->value.size() - 1; i > 0; i--) {
@@ -54,7 +54,7 @@ IOperand const * Float::operator+( IOperand const & rhs ) const {
 			static_cast<float>(std::atof(rhs.toString().c_str()));
 		if (!std::isinf(res))
 			return IOperandFactory().createOperand(eOperandType::Float, std::to_string(res));
-		throw new OverflowException();
+		throw OverflowException();
 	}
 	eOperandType	newType = static_cast<eOperandType>(std::max(this->getPrecision(), rhs.getPrecision()));
 	IOperand const * o1 = IOperandFactory().createOperand(newType, this->toString());
@@ -71,7 +71,7 @@ IOperand const * Float::operator-( IOperand const & rhs ) const {
 			static_cast<float>(std::atof(rhs.toString().c_str()));
 		if (!std::isinf(res))
 			return IOperandFactory().createOperand(eOperandType::Float, std::to_string(res));
-		throw new OverflowException();
+		throw OverflowException();
 	}
 	eOperandType	newType = static_cast<eOperandType>(std::max(this->getPrecision(), rhs.getPrecision()));
 	IOperand const * o1 = IOperandFactory().createOperand(newType, this->toString());
@@ -88,7 +88,7 @@ IOperand const * Float::operator*( IOperand const & rhs ) const {
 			static_cast<float>(std::atof(rhs.toString().c_str()));
 		if (!std::isinf(res))
 			return IOperandFactory().createOperand(eOperandType::Float, std::to_string(res));
-		throw new OverflowException();
+		throw OverflowException();
 	}
 	eOperandType	newType = static_cast<eOperandType>(std::max(this->getPrecision(), rhs.getPrecision()));
 	IOperand const * o1 = IOperandFactory().createOperand(newType, this->toString());
@@ -102,12 +102,12 @@ IOperand const * Float::operator*( IOperand const & rhs ) const {
 IOperand const * Float::operator/( IOperand const & rhs ) const {
 	if (this->getPrecision() == rhs.getPrecision()) {
 		if (static_cast<float>(std::atof(rhs.toString().c_str())) == 0)
-			throw new DivideByZeroException();
+			throw DivideByZeroException(this, &rhs);
 		float res = static_cast<float>(std::atof(this->toString().c_str())) /
 			static_cast<float>(std::atof(rhs.toString().c_str()));
 		if (!std::isinf(res))
 			return IOperandFactory().createOperand(eOperandType::Float, std::to_string(res));
-		throw new OverflowException();
+		throw OverflowException();
 	}
 	eOperandType	newType = static_cast<eOperandType>(std::max(this->getPrecision(), rhs.getPrecision()));
 	IOperand const * o1 = IOperandFactory().createOperand(newType, this->toString());
@@ -120,7 +120,7 @@ IOperand const * Float::operator/( IOperand const & rhs ) const {
 
 IOperand const * Float::operator%( IOperand const & rhs ) const {
 	(void)rhs;
-	throw new OperandsNotIntegersException();
+	throw OperandsNotIntegersException();
 }
 
 std::string const & Float::toString( void ) const {

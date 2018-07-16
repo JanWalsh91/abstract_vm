@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 12:39:59 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/12 17:40:26 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/16 12:57:03 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 Token::Token() {}
 
-Token::Token(std::string instruction) {
-	printf("token constructor 1\n");
-	printf("instruction: %s\n", instruction.c_str());
+Token::Token(size_t line, std::string instruction) {
+	this->line = line;
 	if (instruction == "push" || instruction == "assert") {
-		std::cout << "error: " << instruction << " requires value\n";
+		std::cout << "Error [Line " << line << "]: " << instruction << " requires value\n";
 		std::exit(0);
 	}
 	for (int i = 0; i < 11; ++i) {
@@ -27,16 +26,13 @@ Token::Token(std::string instruction) {
 			break ;
 		}
 	}
-	// this->instruction = eInstructionType::None;
-	// this->type = eOperandType::None;
 	this->value = "";
 }
 
-Token::Token(std::string instruction, std::string type, std::string value) {
-	printf("token constructor 2\n");
-	printf("instruction: %s, type: %s, value: %s\n", instruction.c_str(), type.c_str(), value.c_str());
+Token::Token(size_t line, std::string instruction, std::string type, std::string value) {
+	this->line = line;
 	if (instruction != "push" && instruction != "assert") {
-		std::cout << "error: " << instruction << " does not require value\n"; 
+		std::cout << "Error [Line " << line << "]:" << instruction << " does not require value\n"; 
 		std::exit(0);
 	}
 	for (int i = 0; i < 5; ++i) {
@@ -76,6 +72,10 @@ eOperandType	Token::getType() const {
 
 std::string		Token::getValue() const {
 	return this->value;
+}
+
+size_t			Token::getLine() const {
+	return this->line;
 }
 
 std::ostream& operator<<( std::ostream& os, const Token & token ) {

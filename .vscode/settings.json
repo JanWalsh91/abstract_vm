@@ -28,6 +28,11 @@
 		"limits": "cpp",
 		"ratio": "cpp",
 		"tuple": "cpp",
-		"type_traits": "cpp"
+		"type_traits": "cpp",
+		"algorithm": "cpp",
+		"atomic": "cpp",
+		"locale": "cpp",
+		"system_error": "cpp",
+		"ios": "cpp"
 	}
 }

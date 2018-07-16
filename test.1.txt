@@ -1,9 +1,4 @@
-push int8(0)
-push int8(0)
-add
+push int8(100)
+push float(0)
+mod
 print
-dump
-pop
-pop
-pop
-pop

@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/13 15:15:17 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/13 15:21:50 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/16 12:58:40 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,5 @@ OverflowException &    OverflowException::operator=( OverflowException const & r
 }
 
 const char* OverflowException::what() const throw() {
-	return "Overflow Exception";
+	return "Overflow";
 }

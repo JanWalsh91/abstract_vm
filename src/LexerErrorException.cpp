@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   EmptyStackException.cpp                            :+:      :+:    :+:   */
+/*   LexerErrorException.cpp                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/14 15:33:43 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/16 12:58:59 by jwalsh           ###   ########.fr       */
+/*   Created: 2018/07/16 12:33:46 by jwalsh            #+#    #+#             */
+/*   Updated: 2018/07/16 12:35:44 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "EmptyStackException.hpp"
+#include "LexerErrorException.hpp"
 
-EmptyStackException::EmptyStackException( void ) {}
+LexerErrorException::LexerErrorException( void ) {}
 
-EmptyStackException::EmptyStackException( EmptyStackException const & e ) {
+LexerErrorException::LexerErrorException( LexerErrorException const & e ) {
 	*this = e;
 }
 
-EmptyStackException::~EmptyStackException( void ) throw() {}
+LexerErrorException::~LexerErrorException( void ) throw() {}
 
-EmptyStackException &    EmptyStackException::operator=( EmptyStackException const & rhs ) {
+LexerErrorException &    LexerErrorException::operator=( LexerErrorException const & rhs ) {
 	( void )rhs;
 	return *this;
 }
 
-const char* EmptyStackException::what() const throw() {
-	return "Empty stack. Cannot perform operation.";
+const char* LexerErrorException::what() const throw() {
+	return "Errors found in Lexer.";
 }
