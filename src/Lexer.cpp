@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 16:39:34 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/16 16:12:29 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/16 16:55:01 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	Lexer::readFile(std::string file) {
 				}
 			}
 			catch (const std::exception & e) {
-				std::cout << e.what() << std::endl;
+				std::cout << "\e[0;31m" << e.what() << "\e[0m" << std::endl;
 				this->error = true;
 			}
 		}
@@ -87,7 +87,7 @@ void	Lexer::readFile(std::string file) {
 			throw NoExitInstructionException();
 	}
 	catch (const std::exception & e) {
-		std::cout << e.what() << std::endl;
+		std::cout << "\e[0;31m" << e.what() << "\e[0m" << std::endl;
 		this->error = true;
 	}
 	if (this->error)
@@ -118,7 +118,7 @@ void	Lexer::readFromSI() {
 			Lexer::printInstructions();
 		}
 		else
-			printf("Syntax Error\n");
+			printf("\e[0;31mSyntax Error\e[0m\n");
 	}
 }
 

@@ -1,10 +1,14 @@
 ✓ create one or some exceptions which inherit from a more specific exception,
 	✓ std::overflow
-- add operations: min, max, avg, pow, printnum
+- add operations:
+	✓ min
+	✓ max
+	✓ avg
+	- pow
+	✓ printnum
 - verbose mode
 	- show list of tokens
 	- print at execution of each tokens
-- print must assert operand is a char, and print it as char
 - make sure that lexer interprets as many errors as possible before parser starts
 	- check that programs end with exit else throw an error
 - color error and output
@@ -12,6 +16,8 @@
 	✓ syntax error
 	✓ file reading error
 	✓ no exit instruction in program error
-- free list of operands and tokens at the end
-- free operands as they are being operated on
-- header inclusion guards for exceptions
+✓ free list of operands and tokens at the end
+✓ free operands as they are being operated on
+✓ header inclusion guards for exceptions
+- print must assert operand is a char, and print it as char
+- print must print only the char, not the newline

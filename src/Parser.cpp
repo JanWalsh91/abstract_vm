@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 14:18:29 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/16 16:12:00 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/16 16:52:24 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,21 +57,14 @@ void	Parser::parse() {
 	if (this->tokens.size() == 0) {
 		return ;
 	}
-	
-	// execute action for each token type
-	// if push new value, create operand with the IOperandFactory
 	for (uint i = 0; i < this->tokens.size(); ++i) {
-		// this->*stackFunction[this->tokens[i]->getInstruction()]
-		// printf("calling on stackFunction\n");
-		// (this->*(stackFunctions[0]))
-		// 	( eOperandType::Int32, "test" );
 		try {
 			(this->*(stackFunctions[this->tokens[i]->getInstruction()]))
 				( this->tokens[i]->getType(), this->tokens[i]->getValue() );
 		}
 		catch (const std::exception & e) {
-			std::cout << "Error [Line " << this->tokens[i]->getLine() << "]: "
-				<< e.what() << std::endl;
+			std::cout << "\e[0;31m Error [Line " << this->tokens[i]->getLine() << "]: "
+				<< e.what() << "\e[0;0m" << std::endl;
 			return ;
 		}
 		if (this->end_parse) {
