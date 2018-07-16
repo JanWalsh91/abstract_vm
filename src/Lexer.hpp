@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 16:39:59 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/16 14:03:27 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/16 14:45:27 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include "SyntaxErrorException.hpp"
 # include "ReadingFileErrorException.hpp"
 # include "NoExitInstructionException.hpp"
+# include "NotEnoughOperandsException.hpp"
 
 class Lexer {
 

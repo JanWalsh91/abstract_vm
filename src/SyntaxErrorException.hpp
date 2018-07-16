@@ -6,9 +6,12 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/14 13:08:36 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/16 13:45:23 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/16 14:49:05 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef SYNTAX_ERROR_EXCEPTION_HPP
+# define SYNTAX_ERROR_EXCEPTION_HPP
 
 #include <exception>
 #include <string>
@@ -27,3 +30,5 @@ class SyntaxErrorException : public std::exception {
 		std::string line;
 		size_t lineN;
 };
+
+#endif

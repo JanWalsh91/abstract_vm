@@ -6,11 +6,14 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/14 13:08:36 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/16 14:03:06 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/16 14:46:33 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <exception>
+#ifndef NO_EXIT_INSTRUCTION_EXCEPTION_HPP
+# define NO_EXIT_INSTRUCTION_EXCEPTION_HPP
+
+# include <exception>
 
 class NoExitInstructionException : public std::exception {
 	public:
@@ -20,3 +23,5 @@ class NoExitInstructionException : public std::exception {
 		NoExitInstructionException &    operator=( NoExitInstructionException const & rhs ) ;
 		virtual const char* what() const throw();
 };
+
+#endif

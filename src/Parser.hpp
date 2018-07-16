@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 14:18:19 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/14 15:45:55 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/16 15:09:44 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,23 @@ class Parser {
 		void	push(eOperandType, std::string const &);
 		void	assert(eOperandType, std::string const &);
 		void	print(eOperandType, std::string const &);
+		void	printnum(eOperandType, std::string const &);
 		
 		void	add(eOperandType, std::string const &);
 		void	sub(eOperandType, std::string const &);
 		void	mul(eOperandType, std::string const &);
 		void	div(eOperandType, std::string const &);
 		void	mod(eOperandType, std::string const &);
+		void	min(eOperandType, std::string const &);
+		void	max(eOperandType, std::string const &);
+		void	avg(eOperandType, std::string const &);
 		
 		void	pop(eOperandType, std::string const &);
 		void	dump(eOperandType, std::string const &);
 		void	exit(eOperandType, std::string const &);
 
 		typedef void (Parser::*stackFunction) (eOperandType, std::string const &);
-		stackFunction stackFunctions[11];
+		stackFunction stackFunctions[INSTRUCTION_NUM];
 };
 
 // std::ostream& operator<<( std::ostream& os, const Parser & parser );

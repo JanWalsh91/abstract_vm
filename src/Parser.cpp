@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 14:18:29 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/16 13:38:15 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/16 16:12:00 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,15 @@ Parser::Parser() {
 	this->stackFunctions[eInstructionType::Push] = &Parser::push;
 	this->stackFunctions[eInstructionType::Assert] = &Parser::assert;
 	this->stackFunctions[eInstructionType::Print] = &Parser::print;
+	this->stackFunctions[eInstructionType::Printnum] = &Parser::printnum;
 	this->stackFunctions[eInstructionType::Add] = &Parser::add;
 	this->stackFunctions[eInstructionType::Sub] = &Parser::sub;
 	this->stackFunctions[eInstructionType::Mul] = &Parser::mul;
 	this->stackFunctions[eInstructionType::Div] = &Parser::div;
 	this->stackFunctions[eInstructionType::Mod] = &Parser::mod;
+	this->stackFunctions[eInstructionType::Min] = &Parser::min;
+	this->stackFunctions[eInstructionType::Max] = &Parser::max;
+	this->stackFunctions[eInstructionType::Avg] = &Parser::avg;
 	this->stackFunctions[eInstructionType::Pop] = &Parser::pop;
 	this->stackFunctions[eInstructionType::Dump] = &Parser::dump;
 	this->stackFunctions[eInstructionType::Exit] = &Parser::exit;
@@ -84,16 +88,6 @@ void	Parser::push(eOperandType type, std::string const & value) {
 	// printf("push\n");
 	// printf("push: %s\n", value.c_str());
 	this->operands.push_back(this->operandFactory.createOperand(type, value));
-}
-
-void	Parser::dump(eOperandType type, std::string const & value) {
-	// printf("dump. stack size: %lu\n", this->operands.size());
-	(void)type;
-	(void)value;
-
-	for (int i = (int)this->operands.size() - 1; i >= 0 ; --i) {
-		std::cout << this->operands[i]->toString() << std::endl;
-	}
 }
 
 void	Parser::add(eOperandType type, std::string const & value) {
@@ -179,6 +173,67 @@ void	Parser::mod(eOperandType type, std::string const & value) {
 	delete o2;
 }
 
+void	Parser::min(eOperandType type, std::string const & value) {
+	printf("min\n");
+	(void)type;
+	(void)value;
+
+	if (this->operands.size() < 2)
+		throw NotEnoughOperandsException();
+	IOperand const * o1 = this->operands.back();
+	this->operands.pop_back();
+	IOperand const * o2 = this->operands.back();
+	this->operands.pop_back();
+	double d1 = std::stof(o1->toString());
+	double d2 = std::stof(o2->toString());
+	this->operands.push_back(d1 <= d2 ? o1 : o2);
+	
+	d1 <= d2 ? delete o2 : delete o1;
+}
+
+void	Parser::max(eOperandType type, std::string const & value) {
+	printf("max\n");
+	(void)type;
+	(void)value;
+
+	if (this->operands.size() < 2)
+		throw NotEnoughOperandsException();
+	IOperand const * o1 = this->operands.back();
+	this->operands.pop_back();
+	IOperand const * o2 = this->operands.back();
+	this->operands.pop_back();
+	double d1 = std::stof(o1->toString());
+	double d2 = std::stof(o2->toString());
+	this->operands.push_back(d1 >= d2 ? o1 : o2);
+	
+	d1 >= d2 ? delete o2 : delete o1;
+}
+
+
+void	Parser::avg(eOperandType type, std::string const & value) {
+	printf("avg\n");
+	(void)type;
+	(void)value;
+
+	if (this->operands.size() < 2)
+		throw NotEnoughOperandsException();
+	IOperand const * o1 = this->operands.back();
+	this->operands.pop_back();
+	IOperand const * o2 = this->operands.back();
+	this->operands.pop_back();
+	// add them, divide by 2
+	// get type with highest precision
+	IOperand const * d = this->operandFactory.createOperand(eOperandType::Int8, "2");
+	IOperand const * o3 = *o1 + *o2;
+	IOperand const * o4 = *o3 / *d;
+
+	this->operands.push_back(o4);
+	
+	delete d;
+	delete o1;
+	delete o2;
+	delete o3;
+}
 void	Parser::assert(eOperandType type, std::string const & value) {
 	// printf("assert\n");
 	
@@ -198,6 +253,18 @@ void	Parser::print(eOperandType type, std::string const & value) {
 
 	if (this->operands.size() == 0)
 		throw EmptyStackException();
+	if (this->operands.back()->getType() != eOperandType::Int8)
+		throw AssertionFalseException(this->operands.back(), eOperandType::Int8, this->operands.back()->toString());
+	std::cout << this->operands.back()->toString() << std::endl;
+}
+
+void	Parser::printnum(eOperandType type, std::string const & value) {
+	// printf("printnum\n");
+	(void)type;
+	(void)value;
+
+	if (this->operands.size() == 0)
+		throw EmptyStackException();
 	std::cout << this->operands.back()->toString() << std::endl;
 }
 
@@ -209,6 +276,16 @@ void	Parser::pop(eOperandType type, std::string const & value) {
 	if (this->operands.size() == 0)
 		throw EmptyStackException();
 	this->operands.pop_back();
+}
+
+void	Parser::dump(eOperandType type, std::string const & value) {
+	// printf("dump. stack size: %lu\n", this->operands.size());
+	(void)type;
+	(void)value;
+
+	for (int i = (int)this->operands.size() - 1; i >= 0 ; --i) {
+		std::cout << this->operands[i]->toString() << std::endl;
+	}
 }
 
 void	Parser::exit(eOperandType type, std::string const & value) {

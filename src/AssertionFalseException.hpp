@@ -6,9 +6,12 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/14 13:08:36 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/16 12:00:51 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/16 14:44:31 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef ASSERTION_FALSE_EXCEPTION_HPP
+# define ASSERTION_FALSE_EXCEPTION_HPP
 
 #include <exception>
 #include <string>
@@ -29,3 +32,5 @@ class AssertionFalseException : public std::exception {
 		eOperandType		type;
 		std::string			value;
 };
+
+#endif

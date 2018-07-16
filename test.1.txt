@@ -1,2 +1,5 @@
-push int8(100)
-print
+push int16(1)
+push float(2.9444)
+avg
+dump
+exit

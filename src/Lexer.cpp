@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 16:39:34 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/16 14:04:53 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/16 16:12:29 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	Lexer::readFile(std::string file) {
 					updateOperandsCount(operandsCount, this->tokens.back());
 				}
 				else {
-					printf("syntax error\n");
 					throw SyntaxErrorException(line, this->line);
 				}
 			}
@@ -83,7 +82,8 @@ void	Lexer::readFile(std::string file) {
 		this->error = true;
 	}
 	try {
-		if (this->tokens.back()->getInstruction() != eInstructionType::Exit)
+		this->printTokens();
+		if (this->tokens.size() && this->tokens.back()->getInstruction() != eInstructionType::Exit)
 			throw NoExitInstructionException();
 	}
 	catch (const std::exception & e) {
@@ -95,7 +95,7 @@ void	Lexer::readFile(std::string file) {
 }
 
 void	Lexer::readFromSI() {
-	printf("Reading from standard input\n");
+	printf("Reading from standard input: \n");
 	std::string input;
 
 	while(getline(std::cin, input)) {
@@ -132,7 +132,7 @@ const std::string	Lexer::value = std::string(
 	"(?:(?:(int8)" + Lexer::N + ")|(?:(int16)" + Lexer::N + ")|(?:(int32)" + Lexer::N + ")|(?:(float)" + Lexer::Z + ")|(?:(double)" + Lexer::Z + "))"
 );
 const std::regex	Lexer::instr = std::regex(
-	"(push|pop|dump|assert|add|sub|mul|div|mod|print|exit)(?: )?" + Lexer::value + "?"
+	"(push|pop|dump|assert|add|sub|mul|div|mod|print|exit|min|max|printnum|avg)(?: )?" + Lexer::value + "?"
 );
 const std::regex	Lexer::comment = std::regex(
 	";[^;]*[.]*"
@@ -148,9 +148,14 @@ void	Lexer::updateOperandsCount(size_t & operandsCount, Token * token) {
 		token->getInstruction() == eInstructionType::Sub ||
 		token->getInstruction() == eInstructionType::Mul ||
 		token->getInstruction() == eInstructionType::Div ||
-		token->getInstruction() == eInstructionType::Mod) {
+		token->getInstruction() == eInstructionType::Mod ||
+		token->getInstruction() == eInstructionType::Min ||
+		token->getInstruction() == eInstructionType::Max ||
+		token->getInstruction() == eInstructionType::Avg) {
 		if (operandsCount < 2) {
-			printf("Error [Line %lu]: not enough operands in stack to perform operation.\n", this->line);
+			// TODO throw error
+			throw NotEnoughOperandsException();
+			// printf("Error [Line %lu]: not enough operands in stack to perform operation.\n", this->line);
 			this->error = true;
 			delete this->tokens.back();
 			this->tokens.pop_back();		
@@ -160,9 +165,11 @@ void	Lexer::updateOperandsCount(size_t & operandsCount, Token * token) {
 	}
 	else if (token->getInstruction() == eInstructionType::Pop ||
 		token->getInstruction() == eInstructionType::Assert ||
-		token->getInstruction() == eInstructionType::Print) {
+		token->getInstruction() == eInstructionType::Print ||
+		token->getInstruction() == eInstructionType::Printnum) {
 		if (operandsCount < 1) {
-			printf("Error [Line %lu]: not enough operands in stack to perform instruction.\n", this->line);
+			throw NotEnoughOperandsException();
+			// printf("Error [Line %lu]: not enough operands in stack to perform instruction.\n", this->line);
 			this->error = true;
 			delete this->tokens.back();
 			this->tokens.pop_back();		
@@ -194,7 +201,7 @@ void	Lexer::tokenize(std::smatch m) {
 	}
 	if (instruction == ";;")
 		instruction = "exit";
-	// printf("ADD TOKEN: instruction: [%s], type: [%s], value: [%s]\n", instruction.c_str(), type.c_str(), value.c_str());
+	printf("ADD TOKEN: instruction: [%s], type: [%s], value: [%s]\n", instruction.c_str(), type.c_str(), value.c_str());
 	if (type.size() == 0 || value.size() == 0)
 		this->tokens.push_back(new Token(this->line, instruction));
 	else

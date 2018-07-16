@@ -1,6 +1,6 @@
 ✓ create one or some exceptions which inherit from a more specific exception,
 	✓ std::overflow
-- add operations: min, max, avg, pow
+- add operations: min, max, avg, pow, printnum
 - verbose mode
 	- show list of tokens
 	- print at execution of each tokens
@@ -12,3 +12,6 @@
 	✓ syntax error
 	✓ file reading error
 	✓ no exit instruction in program error
+- free list of operands and tokens at the end
+- free operands as they are being operated on
+- header inclusion guards for exceptions
