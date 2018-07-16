@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 14:18:29 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/16 12:58:31 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/16 13:38:15 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ void	Parser::parse() {
 		// (this->*(stackFunctions[0]))
 		// 	( eOperandType::Int32, "test" );
 		try {
-		(this->*(stackFunctions[this->tokens[i]->getInstruction()]))
-			( this->tokens[i]->getType(), this->tokens[i]->getValue() );
+			(this->*(stackFunctions[this->tokens[i]->getInstruction()]))
+				( this->tokens[i]->getType(), this->tokens[i]->getValue() );
 		}
 		catch (const std::exception & e) {
 			std::cout << "Error [Line " << this->tokens[i]->getLine() << "]: "

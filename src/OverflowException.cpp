@@ -6,15 +6,15 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/13 15:15:17 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/16 12:58:40 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/16 13:48:30 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "OverflowException.hpp"
 
-OverflowException::OverflowException( void ) {}
+OverflowException::OverflowException( void ) : overflow_error(" ") {}
 
-OverflowException::OverflowException( OverflowException const & e ) {
+OverflowException::OverflowException( OverflowException const & e ) : overflow_error(" ") {
 	*this = e;
 }
 

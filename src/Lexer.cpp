@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 16:39:34 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/16 13:01:18 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/16 14:04:53 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,22 +58,36 @@ void	Lexer::readFile(std::string file) {
 			if (!line.size())
 				continue ;
 		
-			std::smatch m;
-			if (std::regex_match(line, m, Lexer::comment)) {
-				continue ;
+			try {
+				std::smatch m;
+				if (std::regex_match(line, m, Lexer::comment)) {
+					continue ;
+				}
+				else if (std::regex_match(line, m, Lexer::instr, std::regex_constants::match_not_null)) {
+					this->tokenize(m);
+					updateOperandsCount(operandsCount, this->tokens.back());
+				}
+				else {
+					printf("syntax error\n");
+					throw SyntaxErrorException(line, this->line);
+				}
 			}
-			else if (std::regex_match(line, m, Lexer::instr, std::regex_constants::match_not_null)) {
-				this->tokenize(m);
-				updateOperandsCount(operandsCount, this->tokens.back());
-			}
-			else {
-				printf("Syntax Error [Line %lu]: %s\n", this->line, line.c_str());
+			catch (const std::exception & e) {
+				std::cout << e.what() << std::endl;
 				this->error = true;
 			}
 		}
 	}
 	else {
-		std::cout << "Error reading file.\n";
+		throw ReadingFileErrorException();
+		this->error = true;
+	}
+	try {
+		if (this->tokens.back()->getInstruction() != eInstructionType::Exit)
+			throw NoExitInstructionException();
+	}
+	catch (const std::exception & e) {
+		std::cout << e.what() << std::endl;
 		this->error = true;
 	}
 	if (this->error)

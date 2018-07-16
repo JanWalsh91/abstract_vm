@@ -6,7 +6,7 @@
 #    By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/10 15:59:40 by jwalsh            #+#    #+#              #
-#    Updated: 2018/07/16 12:36:02 by jwalsh           ###   ########.fr        #
+#    Updated: 2018/07/16 14:03:41 by jwalsh           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,10 @@ SRCS = main.cpp \
 		NotEnoughOperandsException.cpp \
 		EmptyStackException.cpp \
 		ExitCalledBeforeEndOfProgramException.cpp \
-		LexerErrorException.cpp
+		LexerErrorException.cpp \
+		SyntaxErrorException.cpp \
+		ReadingFileErrorException.cpp \
+		NoExitInstructionException.cpp
 
 HEADERS = Lexer.hpp \
 		Token.hpp \
@@ -55,7 +58,10 @@ HEADERS = Lexer.hpp \
 		NotEnoughOperandsException.hpp \
 		EmptyStackException.hpp \
 		ExitCalledBeforeEndOfProgramException.hpp \
-		LexerErrorException.hpp
+		LexerErrorException.hpp \
+		SyntaxErrorException.hpp \
+		ReadingFileErrorException.hpp \
+		NoExitInstructionException.hpp
 
 OBJS := $(SRCS:.cpp=.o)
 SRCS_DIR := ./src

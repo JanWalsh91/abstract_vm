@@ -1,4 +1,2 @@
 push int8(100)
-push float(0)
-mod
 print

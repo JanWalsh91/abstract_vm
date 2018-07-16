@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   OverflowException.hpp                              :+:      :+:    :+:   */
+/*   ReadingFileErrorException.hpp                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/13 15:15:32 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/16 13:41:27 by jwalsh           ###   ########.fr       */
+/*   Created: 2018/07/14 13:08:36 by jwalsh            #+#    #+#             */
+/*   Updated: 2018/07/16 14:00:00 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <exception>
-#include <stdexcept>
 
-class OverflowException : public std::overflow_error {
+class ReadingFileErrorException : public std::exception {
 	public:
-		OverflowException( void );
-		OverflowException( OverflowException const & e );
-		virtual ~OverflowException( void ) throw();
-		OverflowException &    operator=( OverflowException const & rhs ) ;
+		ReadingFileErrorException( void );
+		ReadingFileErrorException( ReadingFileErrorException const & e );
+		virtual ~ReadingFileErrorException( void ) throw();
+		ReadingFileErrorException &    operator=( ReadingFileErrorException const & rhs ) ;
 		virtual const char* what() const throw();
 };
