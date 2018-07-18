@@ -1,0 +1,9 @@
+push eint32(42)
+push
+add int8(2)
+push double(5.5))
+sub 0
+pus int8(42)
+dump dump
+printnumo
+print

@@ -1,0 +1,22 @@
+;c
+;
+; asdlfh adslf asdf; adsf a;
+
+  ;
+  ;c
+   ;;
+   ;;k
+;;
+;;lasdf; adsf
+;;;
+
+dump ;
+dump       ; hello
+dump       ;
+dump       ;lkl;
+dump		; asdf;adsfasdf;;
+
+dump ;;
+dump       ;;
+
+exit

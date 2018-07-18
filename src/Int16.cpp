@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/13 11:53:45 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/16 12:20:01 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/17 17:14:50 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,14 @@
 Int16::Int16() {}
 
 Int16::Int16(std::string value) {	
-	// stoi throws out of range exception if int too big
-	long i = std::stol(value);
-	if (SHRT_MIN <= i && i <= SHRT_MAX)
-		this->value = value;
-	else throw OverflowException();
+	try {
+		long i = std::stol(value);
+		if (std::numeric_limits<short>::min() <= i && i <= std::numeric_limits<short>::max())
+			this->value = value;
+		else throw OverflowException();
+	} catch (...) {
+		throw OverflowException();
+	}
 }
 
 Int16::Int16( Int16 const & int16 ) {

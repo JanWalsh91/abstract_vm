@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/13 15:57:53 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/16 12:49:58 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/17 17:15:00 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,14 @@
 Int32::Int32() {}
 
 Int32::Int32(std::string value) {
-	long i = std::stol(value);
-	if (INT_MIN <= i && i <= INT_MAX)
-		this->value = value;
-	else throw OverflowException();
+	try {
+		long i = std::stol(value);
+		if (std::numeric_limits<int>::min() <= i && i <= std::numeric_limits<int>::max())
+			this->value = value;
+		else throw OverflowException();
+	} catch (...) {
+		throw OverflowException();
+	}
 }
 
 Int32::Int32( Int32 const & int32 ) {

@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 12:40:15 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/16 12:56:31 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/18 10:36:40 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <iostream>
 # include "eOperandType.hpp"
 # include "eInstructionType.hpp"
+# include "SyntaxErrorException.hpp"
 
 class Token {
 
@@ -26,7 +27,6 @@ class Token {
 		Token(Token const &);
 		~Token();
 		
-		// Getters
 		eInstructionType	getInstruction() const;
 		eOperandType		getType() const;
 		std::string			getValue() const;

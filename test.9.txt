@@ -1,0 +1,5 @@
+push int32(420000)
+push int8(5)
+mul
+printnum int8(9)
+exit

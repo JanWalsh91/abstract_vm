@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 14:18:19 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/16 15:09:44 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/18 11:48:43 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@
 class Parser {
 
 	public:
-		Parser();
-		Parser(std::vector<Token*> tokens);
+		Parser(std::vector<Token*> tokens, bool verbose=false);
 		Parser(Parser const &);
 		~Parser();
 
@@ -42,6 +41,7 @@ class Parser {
 		std::vector<IOperand const *>	operands;
 		IOperandFactory					operandFactory;
 		bool							end_parse;
+		bool							verbose;
 
 		// stack functions
 		void	push(eOperandType, std::string const &);
@@ -64,8 +64,9 @@ class Parser {
 
 		typedef void (Parser::*stackFunction) (eOperandType, std::string const &);
 		stackFunction stackFunctions[INSTRUCTION_NUM];
-};
 
-// std::ostream& operator<<( std::ostream& os, const Parser & parser );
+		void	printInstruction(std::string name, IOperand const * o1 = NULL, IOperand const * o2 = NULL);
+		Parser();
+};
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 12:39:59 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/16 15:04:40 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/18 10:38:17 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 Token::Token() {}
 
 Token::Token(size_t line, std::string instruction) {
-	// printf("Token1: instruction : [%s]\n", instruction.c_str());
 	this->line = line;
 	if (instruction == "push" || instruction == "assert") {
-		std::cout << "Error [Line " << line << "]: " << instruction << " requires value\n";
-		std::exit(0);
+		throw SyntaxErrorException(instruction, line);
 	}
 	for (int i = 0; i < INSTRUCTION_NUM; ++i) {
 		if (eInstructionTypeNames[i] == instruction) {
@@ -31,11 +29,9 @@ Token::Token(size_t line, std::string instruction) {
 }
 
 Token::Token(size_t line, std::string instruction, std::string type, std::string value) {
-	// printf("Token2\n");
 	this->line = line;
 	if (instruction != "push" && instruction != "assert") {
-		std::cout << "Error [Line " << line << "]:" << instruction << " does not require value\n"; 
-		std::exit(0);
+		throw SyntaxErrorException(instruction, line);
 	}
 	for (int i = 0; i < 5; ++i) {
 		if (eOperandTypeNames[i] == type) {
@@ -81,13 +77,11 @@ size_t			Token::getLine() const {
 }
 
 std::ostream& operator<<( std::ostream& os, const Token & token ) {
-	// printf("displaying token: ");
-	// (void)token;
-	
+	os << "[Line " << token.getLine() << "]: ";
 	os << eInstructionTypeNames[token.getInstruction()];
-	// if (token.getInstruction() == eInstructionType::Push || token.getInstruction() == eInstructionType::Assert) {
-	// 	os << ", type: " << eOperandTypeNames[token.getType()];
-	// 	os << ", value: " << token.getValue();
-	// }
+	if (token.getInstruction() == eInstructionType::Push || token.getInstruction() == eInstructionType::Assert) {
+		os << ", type: " << eOperandTypeNames[token.getType()];
+		os << ", value: " << token.getValue();
+	}
     return os;
 }

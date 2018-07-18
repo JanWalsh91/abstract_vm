@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 16:39:59 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/16 14:45:27 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/18 10:18:59 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ class Lexer {
 
 	public:
 		Lexer();
+		Lexer(bool verbose);
 		Lexer(Lexer const &);
 		~Lexer();
 		void				readFile(std::string);
@@ -46,6 +47,7 @@ class Lexer {
 	private:
 		std::vector<Token*>	tokens;
 		bool				error;
+		bool				verbose;
 
 		void			tokenize(std::smatch);
 		void			updateOperandsCount(size_t & operandsCount, Token * token);
