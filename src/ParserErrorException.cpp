@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   SyntaxErrorException.cpp                           :+:      :+:    :+:   */
+/*   ParserErrorException.cpp                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 12:33:46 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/20 11:44:21 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/19 14:23:44 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "SyntaxErrorException.hpp"
+#include "ParserErrorException.hpp"
 
-SyntaxErrorException::SyntaxErrorException( void ) : std::runtime_error("") {}
+ParserErrorException::ParserErrorException( void ) {}
 
-SyntaxErrorException::SyntaxErrorException( std::string line ) : 
-	std::runtime_error("Syntax Error: " + line) {	
-}
-
-SyntaxErrorException::SyntaxErrorException( SyntaxErrorException const & e ) : std::runtime_error("") {
+ParserErrorException::ParserErrorException( ParserErrorException const & e ) {
 	*this = e;
 }
 
-SyntaxErrorException::~SyntaxErrorException( void ) throw() {}
+ParserErrorException::~ParserErrorException( void ) throw() {}
 
-SyntaxErrorException &    SyntaxErrorException::operator=( SyntaxErrorException const & rhs ) {
-	(void)rhs;
+ParserErrorException &    ParserErrorException::operator=( ParserErrorException const & rhs ) {
+	( void )rhs;
 	return *this;
+}
+
+const char* ParserErrorException::what() const throw() {
+	return "Errors found while parsing.";
 }

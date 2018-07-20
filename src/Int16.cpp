@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/13 11:53:45 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/17 17:14:50 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/18 14:36:27 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ Int16::~Int16() {}
 
 class Int16	&Int16::operator=(Int16 const & rhs) {
 	this->value = rhs.value;
-	(void)rhs;
 	return *this;
 }
 
@@ -45,13 +44,7 @@ eOperandType Int16::getType( void ) const {
 	return eOperandType::Int16;
 }
 
-/*
-	Arithmetic algorithm:
-	- if same type, turn string to type, add and create a new one. 
-*/
-
 IOperand const * Int16::operator+( IOperand const & rhs ) const {
-	// if same type, cast string to type, add together, and 
 	if (this->getPrecision() == rhs.getPrecision()) {
 		long res = static_cast<long>(std::atol(this->toString().c_str())) +
 			static_cast<long>(std::atol(rhs.toString().c_str()));
@@ -59,13 +52,10 @@ IOperand const * Int16::operator+( IOperand const & rhs ) const {
 			return IOperandFactory().createOperand(eOperandType::Int16, std::to_string(res));
 		throw OverflowException();
 	}
-	// if not same type, determine final type based on precison
 	eOperandType	newType = static_cast<eOperandType>(std::max(this->getPrecision(), rhs.getPrecision()));
 	
-	// create new IOperands with the right type.
 	IOperand const * o1 = IOperandFactory().createOperand(newType, this->toString());
 	IOperand const * o2 = IOperandFactory().createOperand(newType, rhs.toString());
-	// add (now same type)
 	IOperand const * result = *o1 + *o2;
 	delete o1;
 	delete o2;

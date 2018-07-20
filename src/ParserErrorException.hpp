@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ReadingFileErrorException.hpp                      :+:      :+:    :+:   */
+/*   ParserErrorException.hpp                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/14 13:08:36 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/19 12:54:27 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/19 14:22:25 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef READING_FILE_ERROR_EXCEPTION_HPP
-# define READING_FILE_ERROR_EXCEPTION_HPP
+#ifndef PARSER_ERROR_EXCEPTION_HPP
+# define PARSER_ERROR_EXCEPTION_HPP
 
 # include <exception>
 
-class ReadingFileErrorException : public std::exception {
+class ParserErrorException : public std::exception {
 	public:
-		ReadingFileErrorException( void );
-		ReadingFileErrorException( ReadingFileErrorException const & e );
-		virtual ~ReadingFileErrorException( void ) throw();
-		ReadingFileErrorException &    operator=( ReadingFileErrorException const & rhs ) ;
+		ParserErrorException( void );
+		ParserErrorException( ParserErrorException const & e );
+		virtual ~ParserErrorException( void ) throw();
+		ParserErrorException &    operator=( ParserErrorException const & rhs ) ;
 		virtual const char* what() const throw();
 };
 

@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 14:34:54 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/14 15:34:20 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/18 14:56:26 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 # include "Double.hpp"
 
 class IOperandFactory {
-
 	public:
 		IOperandFactory();
 		IOperandFactory(IOperandFactory const &);
@@ -46,7 +45,6 @@ class IOperandFactory {
 
 		typedef IOperand const * (IOperandFactory::*operandGetter) (std::string const &) const;
 		operandGetter getOperand[5];
-
 };
 
 #endif

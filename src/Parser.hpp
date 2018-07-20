@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 14:18:19 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/18 11:48:43 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/19 14:25:05 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include "NotEnoughOperandsException.hpp"
 # include "EmptyStackException.hpp"
 # include "ExitCalledBeforeEndOfProgramException.hpp"
+# include "ParserErrorException.hpp"
 
 class Parser {
 
@@ -66,6 +67,7 @@ class Parser {
 		stackFunction stackFunctions[INSTRUCTION_NUM];
 
 		void	printInstruction(std::string name, IOperand const * o1 = NULL, IOperand const * o2 = NULL);
+
 		Parser();
 };
 

@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 16:21:45 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/18 11:48:50 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/19 14:22:52 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,11 @@ int    main(int ac, char **av) {
 		std::vector<Token*> tokens = lexer->getTokens();
 		
 		Parser *parser = new Parser(tokens, verbose);
-		parser->parse();
+		try {
+			parser->parse();
+		} catch (const std::exception & e) {
+			std::cout << "\e[0;31m" << e.what() << "\e[0m" << std::endl;
+		}
 		delete_tokens(tokens);
 		delete lexer;
 		delete parser;

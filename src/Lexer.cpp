@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 16:39:34 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/18 11:50:29 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/20 11:45:17 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ bool			Lexer::hasError() {
 }
 
 Lexer &Lexer::operator=(Lexer const & rhs) {
-	(void)rhs;
+	this->tokens = rhs.tokens;
+	this->error = rhs.error;
+	this->verbose = rhs.verbose;
+	this->line = rhs.line;
 	return *this;
 }
 
@@ -74,12 +77,11 @@ void	Lexer::readFile(std::string file) {
 					this->tokenize(m);
 					updateOperandsCount(operandsCount, this->tokens.back());
 				}
-				else {
-					throw SyntaxErrorException(line, this->line);
-				}
+				else
+					throw SyntaxErrorException(line);
 			}
 			catch (const std::exception & e) {
-				std::cout << "\e[0;31mError [Line: " << this->line << "]: " << e.what() << "\e[0m" << std::endl;
+				std::cout << "\e[0;31m" << "Error [Line: " << this->line << "]: " << e.what() << "\e[0m" << std::endl;
 				this->error = true;
 			}
 		}
@@ -141,12 +143,9 @@ const std::string	Lexer::value = std::string(
 );
 const std::regex	Lexer::instr = std::regex(
 	"(push|pop|dump|assert|add|sub|mul|div|mod|print|exit|min|max|printnum|avg)(?: )?" + Lexer::value + "?" + "(:?[^;]*;(?:[^;].*)?)?"
-	// "(push|pop|dump|assert|add|sub|mul|div|mod|print|exit|min|max|printnum|avg)(?: )?" + Lexer::value + "?" + "(?:[^;]*;[^;]*[.]*)?" // first version
 );
 const std::regex	Lexer::comment = std::regex(
 	";(?:[^;].*)?"
-	// ";[^;]+[.]*" first version
-	//";(?:[^;]|\n).*" second
 );
 const std::regex	Lexer::exit = std::regex(
 	"(;;)"
@@ -213,7 +212,6 @@ void	Lexer::tokenize(std::smatch m) {
 	}
 	if (instruction == ";;")
 		instruction = "exit";
-	// printf("ADD TOKEN: instruction: [%s], type: [%s], value: [%s]\n", instruction.c_str(), type.c_str(), value.c_str());
 	if (type.size() == 0 || value.size() == 0)
 		this->tokens.push_back(new Token(this->line, instruction));
 	else

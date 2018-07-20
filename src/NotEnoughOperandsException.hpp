@@ -6,14 +6,14 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/14 13:08:36 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/16 14:47:21 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/18 15:01:59 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef NOT_ENOUGH_OPERANDS_EXCEPTION_HPP
 # define NOT_ENOUGH_OPERANDS_EXCEPTION_HPP
 
-#include <exception>
+# include <exception>
 
 class NotEnoughOperandsException : public std::exception {
 	public:

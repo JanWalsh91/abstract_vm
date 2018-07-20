@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 14:18:29 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/18 13:30:09 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/19 14:30:34 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,8 @@ void	Parser::setTokens(std::vector<Token*> tokens) {
 void	Parser::parse() {
 	if (this->verbose)
 		std::cout << "Parsing tokens and executing program:\n\n";
-	if (this->tokens.size() == 0) {
+	if (this->tokens.size() == 0)
 		return ;
-	}
 	for (uint i = 0; i < this->tokens.size(); ++i) {
 		try {
 			(this->*(stackFunctions[this->tokens[i]->getInstruction()]))
@@ -68,12 +67,11 @@ void	Parser::parse() {
 		catch (const std::exception & e) {
 			std::cout << "\e[0;31mError [Line " << this->tokens[i]->getLine() << "]: "
 				<< e.what() << "\e[0;0m" << std::endl;
-			return ;
+			throw ParserErrorException();
 		}
 		if (this->end_parse) {
-			if (i + 1 != this->tokens.size()) {
+			if (i + 1 != this->tokens.size())
 				throw ExitCalledBeforeEndOfProgramException();
-			}
 			break ;
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/14 13:09:00 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/16 12:59:21 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/18 14:30:12 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ AssertionFalseException::AssertionFalseException( AssertionFalseException const 
 AssertionFalseException::~AssertionFalseException( void ) throw() {}
 
 AssertionFalseException &    AssertionFalseException::operator=( AssertionFalseException const & rhs ) {
-	( void )rhs;
+	this->left = rhs.left;
+	this->type = rhs.type;
+	this->value = rhs.value;
 	return *this;
 }
 

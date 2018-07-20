@@ -6,7 +6,7 @@
 #    By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/10 15:59:40 by jwalsh            #+#    #+#              #
-#    Updated: 2018/07/16 14:03:41 by jwalsh           ###   ########.fr        #
+#    Updated: 2018/07/19 14:23:18 by jwalsh           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRCS = main.cpp \
 		EmptyStackException.cpp \
 		ExitCalledBeforeEndOfProgramException.cpp \
 		LexerErrorException.cpp \
+		ParserErrorException.cpp \
 		SyntaxErrorException.cpp \
 		ReadingFileErrorException.cpp \
 		NoExitInstructionException.cpp
@@ -59,6 +60,7 @@ HEADERS = Lexer.hpp \
 		EmptyStackException.hpp \
 		ExitCalledBeforeEndOfProgramException.hpp \
 		LexerErrorException.hpp \
+		ParserErrorException.hpp \
 		SyntaxErrorException.hpp \
 		ReadingFileErrorException.hpp \
 		NoExitInstructionException.hpp
@@ -69,7 +71,6 @@ OBJS_DIR := ./obj
 HEADERS := $(addprefix $(SRCS_DIR)/, $(HEADERS))
 OBJS := $(addprefix $(OBJS_DIR)/, $(OBJS))
 SRCS := $(addprefix $(SRCS_DIR)/, $(SRCS))
-# INCLUDES := "/sgoinfre/goinfre/Perso/jwalsh/boost_1_67_0/"
 
 # Colors #
 
@@ -83,7 +84,6 @@ C_BLUE = \033[34m
 C_MAGENTA = \033[35m
 C_CYAN = \033[36m
 C_GRAY = \033[37m
-
 
 # Rules #
 

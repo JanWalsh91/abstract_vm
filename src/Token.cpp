@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 12:39:59 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/18 10:38:17 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/20 11:44:00 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ Token::Token() {}
 Token::Token(size_t line, std::string instruction) {
 	this->line = line;
 	if (instruction == "push" || instruction == "assert") {
-		throw SyntaxErrorException(instruction, line);
+		throw SyntaxErrorException(instruction);
 	}
 	for (int i = 0; i < INSTRUCTION_NUM; ++i) {
 		if (eInstructionTypeNames[i] == instruction) {
@@ -31,7 +31,7 @@ Token::Token(size_t line, std::string instruction) {
 Token::Token(size_t line, std::string instruction, std::string type, std::string value) {
 	this->line = line;
 	if (instruction != "push" && instruction != "assert") {
-		throw SyntaxErrorException(instruction, line);
+		throw SyntaxErrorException(instruction);
 	}
 	for (int i = 0; i < 5; ++i) {
 		if (eOperandTypeNames[i] == type) {
@@ -56,7 +56,10 @@ Token::~Token() {
 }
 
 Token &Token::operator=(Token const & rhs) {
-	(void)rhs;
+	this->instruction = rhs.instruction;
+	this->type = rhs.type;
+	this->value = rhs.value;
+	this->line = rhs.line;
 	return *this;
 }
 

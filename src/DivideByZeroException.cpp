@@ -6,7 +6,7 @@
 /*   By: jwalsh <jwalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/13 15:46:12 by jwalsh            #+#    #+#             */
-/*   Updated: 2018/07/16 12:59:16 by jwalsh           ###   ########.fr       */
+/*   Updated: 2018/07/18 14:32:53 by jwalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ DivideByZeroException::DivideByZeroException( DivideByZeroException const & e ) 
 DivideByZeroException::~DivideByZeroException( void ) throw() {}
 
 DivideByZeroException &    DivideByZeroException::operator=( DivideByZeroException const & rhs ) {
-	( void )rhs;
+	this->right = rhs.right;
+	this->right = rhs.right;
 	return *this;
 }
 
